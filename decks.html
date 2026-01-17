@@ -524,15 +524,8 @@
       }
     });
 
-    document.querySelectorAll('.deck-card').forEach(card=>{
-      card.addEventListener('click', ()=>openModal(card.dataset.pdf));
-      card.addEventListener('keydown', (e)=>{ 
-        if(e.key === 'Enter' || e.key === ' ') { 
-          e.preventDefault(); 
-          openModal(card.dataset.pdf); 
-        } 
-      });
-    });
+    // Note: .deck-card elements are anchor tags that navigate to case studies
+    // Do not add click handlers that would intercept the navigation
   </script>
 </body>
 </html>
