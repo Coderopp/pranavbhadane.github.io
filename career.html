@@ -27,7 +27,7 @@
   <meta name="twitter:title" content="Career Journey — Pranav Bhadane" />
   <meta name="twitter:description" content="Product Management at SurgePV Solar, Strategy at Exotel, and leadership at IIT Kharagpur. 5+ internships across product, strategy, and finance." />
   <meta name="twitter:image" content="https://coderopp.github.io/pranavbhadane.github.io/assets/og-image.png" />
-  <meta name="twitter:creator" content="@pranavbhadane" />
+  <meta name="twitter:creator" content="@Pranav_IITKGP" />
   
   <!-- Additional SEO -->
   <meta name="theme-color" content="#3fa9eb" />
@@ -39,50 +39,98 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     .section-title{font-size:2rem;font-weight:700;margin:60px 0 16px;letter-spacing:-0.02em}
-    .section-subtitle{color:var(--muted);font-size:1rem;margin-bottom:40px}
+    .section-subtitle{color:var(--muted);font-size:1rem;margin-bottom:40px;line-height:1.7}
 
-    /* Horizontal Serpentine Timeline */
-    .serpentine-wrapper{
-      position:relative;
-      margin:40px 0 100px;
-      overflow-x:auto;
-      overflow-y:visible;
-      padding:20px 0 40px;
-      scrollbar-width:none;
-      -ms-overflow-style:none;
+    /* Stats Banner */
+    .stats-banner{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:24px;
+      margin:40px 0 60px;
     }
-    .serpentine-wrapper::-webkit-scrollbar{display:none}
-    
-    .serpentine-timeline{
+    @media(max-width:768px){
+      .stats-banner{grid-template-columns:repeat(2, 1fr)}
+    }
+    @media(max-width:480px){
+      .stats-banner{grid-template-columns:1fr}
+    }
+    .stat-card{
+      background:var(--card-bg);
+      backdrop-filter:blur(var(--glass-blur));
+      -webkit-backdrop-filter:blur(var(--glass-blur));
+      border:1px solid var(--glass-border);
+      border-radius:var(--card-radius);
+      padding:24px;
+      text-align:center;
+      transition:all var(--transition-smooth);
+    }
+    .stat-card:hover{
+      border-color:var(--accent);
+      transform:translateY(-4px);
+      box-shadow:0 12px 40px rgba(63,169,235,0.15);
+    }
+    .stat-number{
+      font-size:2.5rem;
+      font-weight:800;
+      color:var(--accent);
+      letter-spacing:-0.02em;
+      line-height:1;
+    }
+    .stat-label{
+      font-size:0.85rem;
+      color:var(--muted);
+      margin-top:8px;
+    }
+
+    /* Vertical Timeline */
+    .timeline{
       position:relative;
-      min-width:1400px;
-      height:400px;
-      padding:0 60px;
+      padding:20px 0;
     }
     
-    /* SVG dashed serpentine path */
-    .serpentine-path{
+    /* Timeline center line */
+    .timeline::before{
+      content:'';
       position:absolute;
-      top:0;
-      left:0;
-      width:100%;
+      left:50%;
+      transform:translateX(-50%);
+      width:3px;
       height:100%;
-      pointer-events:none;
-      z-index:0;
+      background:linear-gradient(180deg, var(--accent) 0%, var(--accent) 50%, transparent 100%);
+      border-radius:3px;
     }
-    .serpentine-path path{
-      fill:none;
-      stroke:var(--accent);
-      stroke-width:3px;
-      stroke-dasharray:10 6;
-      stroke-linecap:round;
+    @media(max-width:768px){
+      .timeline::before{
+        left:20px;
+      }
     }
     
-    /* Timeline nodes */
+    .timeline-item{
+      position:relative;
+      margin-bottom:60px;
+      display:flex;
+      align-items:flex-start;
+    }
+    
+    .timeline-item:nth-child(odd){
+      flex-direction:row-reverse;
+    }
+    
+    @media(max-width:768px){
+      .timeline-item,
+      .timeline-item:nth-child(odd){
+        flex-direction:row;
+        padding-left:50px;
+      }
+    }
+    
+    /* Timeline node/dot */
     .timeline-node{
       position:absolute;
-      width:44px;
-      height:44px;
+      left:50%;
+      transform:translateX(-50%);
+      width:48px;
+      height:48px;
       border-radius:50%;
       background:var(--card-bg);
       border:3px solid var(--accent);
@@ -90,102 +138,200 @@
       align-items:center;
       justify-content:center;
       font-weight:700;
-      font-size:0.85rem;
+      font-size:0.9rem;
       color:var(--accent);
       z-index:2;
-      transition:all var(--transition);
+      transition:all var(--transition-smooth);
       cursor:pointer;
+      backdrop-filter:blur(var(--glass-blur));
     }
-    .timeline-node:hover{
-      background:var(--accent);
-      color:#fff;
-      transform:scale(1.1);
+    
+    @media(max-width:768px){
+      .timeline-node{
+        left:20px;
+        width:40px;
+        height:40px;
+        font-size:0.8rem;
+      }
     }
+    
+    .timeline-node:hover,
     .timeline-node.active{
       background:var(--accent);
       color:#fff;
+      transform:translateX(-50%) scale(1.15);
+      box-shadow:0 0 20px var(--glow-color);
     }
     
-    /* Cards */
-    .node-card{
-      position:absolute;
-      background:var(--card-bg);
-      border:1px solid var(--border);
-      border-radius:10px;
-      padding:14px;
-      width:180px;
-      z-index:1;
-      transition:all var(--transition);
+    @media(max-width:768px){
+      .timeline-node:hover,
+      .timeline-node.active{
+        transform:translateX(0) scale(1.15);
+      }
     }
-    .node-card:hover{
+    
+    /* Timeline card */
+    .timeline-card{
+      width:calc(50% - 60px);
+      background:var(--card-bg);
+      backdrop-filter:blur(var(--glass-blur));
+      -webkit-backdrop-filter:blur(var(--glass-blur));
+      border:1px solid var(--glass-border);
+      border-radius:var(--card-radius);
+      padding:28px;
+      transition:all var(--transition-smooth);
+      position:relative;
+    }
+    
+    @media(max-width:768px){
+      .timeline-card{
+        width:100%;
+      }
+    }
+    
+    .timeline-card:hover{
       border-color:var(--accent);
-      box-shadow:0 8px 24px rgba(63,169,235,0.15);
+      transform:translateY(-4px);
+      box-shadow:0 12px 40px rgba(63,169,235,0.15);
+    }
+    
+    /* Card arrow pointer */
+    .timeline-card::before{
+      content:'';
+      position:absolute;
+      top:24px;
+      width:16px;
+      height:16px;
+      background:var(--card-bg);
+      border:1px solid var(--glass-border);
+      border-right:none;
+      border-bottom:none;
+      transform:rotate(45deg);
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-card::before{
+      left:-9px;
+      transform:rotate(-45deg);
+    }
+    
+    .timeline-item:nth-child(even) .timeline-card::before{
+      right:-9px;
+      transform:rotate(135deg);
+    }
+    
+    @media(max-width:768px){
+      .timeline-card::before{
+        left:-9px !important;
+        transform:rotate(-45deg) !important;
+      }
+    }
+    
+    .card-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:16px;
     }
     
     .card-period{
       font-family:"JetBrains Mono", monospace;
-      color:var(--accent);
-      font-size:0.65rem;
-      font-weight:600;
-      margin-bottom:4px;
-    }
-    .card-role{font-size:0.85rem;font-weight:700;margin-bottom:2px;line-height:1.2}
-    .card-company{color:var(--muted);font-size:0.75rem;margin-bottom:6px}
-    .card-highlights{list-style:none;padding:0;margin:0}
-    .card-highlights li{
-      font-size:0.7rem;
-      color:var(--muted);
-      margin:3px 0;
-      padding-left:10px;
-      position:relative;
-      line-height:1.3;
-    }
-    .card-highlights li::before{
-      content:'→';
-      position:absolute;
-      left:0;
-      color:var(--accent);
-      font-weight:600;
-      font-size:0.6rem;
-    }
-    
-    /* Flags */
-    .timeline-flag{
-      position:absolute;
-      z-index:3;
-      display:flex;
-      align-items:center;
-      gap:6px;
-      color:var(--muted);
-      font-size:0.8rem;
-    }
-    .timeline-flag .icon{font-size:1.3rem}
-    
-    /* Scroll controls */
-    .timeline-controls{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      margin-top:24px;
-    }
-    .timeline-btn{
-      background:var(--card-bg);
-      border:1px solid var(--border);
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:all var(--transition);
-      color:var(--text);
-      font-size:20px;
-    }
-    .timeline-btn:hover{
       background:var(--accent);
       color:#fff;
+      font-size:0.7rem;
+      font-weight:600;
+      padding:4px 10px;
+      border-radius:20px;
+      white-space:nowrap;
+    }
+    
+    .card-role{
+      font-size:1.15rem;
+      font-weight:700;
+      margin-bottom:4px;
+      line-height:1.3;
+      letter-spacing:-0.02em;
+    }
+    
+    .card-company{
+      color:var(--accent);
+      font-size:0.95rem;
+      font-weight:600;
+      margin-bottom:16px;
+    }
+    
+    .card-highlights{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    
+    .card-highlights li{
+      background:var(--badge-bg);
+      padding:6px 12px;
+      border-radius:var(--card-radius-sm);
+      font-size:0.8rem;
+      color:var(--text);
+      border:1px solid var(--glass-border);
+      transition:all var(--transition);
+    }
+    
+    .card-highlights li:hover{
       border-color:var(--accent);
+      background:var(--card-bg);
+    }
+
+    /* Section divider */
+    .section-divider{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin:80px 0 40px;
+    }
+    .section-divider::before,
+    .section-divider::after{
+      content:'';
+      flex:1;
+      height:1px;
+      background:var(--border-solid);
+    }
+    .section-divider span{
+      font-size:1.5rem;
+    }
+
+    /* Animate timeline items on scroll */
+    .timeline-item{
+      opacity:0;
+      transform:translateY(30px);
+      transition:all 0.6s ease;
+    }
+    .timeline-item.in-view{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .timeline-item:nth-child(odd).in-view{
+      animation:slideFromRight 0.6s ease forwards;
+    }
+    .timeline-item:nth-child(even).in-view{
+      animation:slideFromLeft 0.6s ease forwards;
+    }
+    
+    @keyframes slideFromLeft{
+      from{opacity:0;transform:translateX(-30px)}
+      to{opacity:1;transform:translateX(0)}
+    }
+    @keyframes slideFromRight{
+      from{opacity:0;transform:translateX(30px)}
+      to{opacity:1;transform:translateX(0)}
+    }
+    @media(max-width:768px){
+      .timeline-item:nth-child(odd).in-view,
+      .timeline-item:nth-child(even).in-view{
+        animation:slideFromLeft 0.6s ease forwards;
+      }
     }
   </style>
 </head>
@@ -208,208 +354,242 @@
     </header>
 
     <main id="main">
-      <!-- Career Journey Section -->
+      <!-- Hero Section -->
       <h1 class="page-title reveal">Career Journey</h1>
-      <p class="section-subtitle reveal">My professional experience across product, strategy, and technology.</p>
+      <p class="section-subtitle reveal">My professional experience across product, strategy, and technology — building products that bridge AI research with real-world execution.</p>
       
-      <div class="serpentine-wrapper reveal" id="careerWrapper">
-        <div class="serpentine-timeline">
-          <!-- SVG Serpentine Path -->
-          <svg class="serpentine-path" viewBox="0 0 1400 400" preserveAspectRatio="none">
-            <path d="M 60,300 
-                     C 120,300 180,300 240,250
-                     C 300,200 340,150 400,150
-                     C 460,150 500,200 560,250
-                     C 620,300 680,300 740,300
-                     C 800,300 860,300 920,250
-                     C 980,200 1020,150 1080,150
-                     C 1140,150 1180,200 1240,250
-                     C 1300,300 1340,300 1340,300" />
-          </svg>
-          
-          <!-- Start flag (oldest) -->
-          <div class="timeline-flag" style="left:40px;top:320px">
-            <span class="icon">🚀</span>
-            <span>Start</span>
-          </div>
-          
-          <!-- Node 1 - Oldest: Knoct (Apr'23) -->
-          <div class="timeline-node" style="left:218px;top:278px">1</div>
-          <div class="node-card" style="left:158px;top:40px">
-            <div class="card-period">Apr '23 - Jun '23</div>
-            <div class="card-role">Business Strategy Intern</div>
-            <div class="card-company">Knoct</div>
+      <!-- Stats Banner -->
+      <div class="stats-banner reveal">
+        <div class="stat-card">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Internships</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Leadership Roles</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">$2M+</div>
+          <div class="stat-label">Value Created</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Users Impacted</div>
+        </div>
+      </div>
+
+      <!-- Professional Experience Timeline -->
+      <h2 class="section-title reveal">Professional Experience</h2>
+      
+      <div class="timeline">
+        <!-- Experience 1 - SurgePV (Most Recent) -->
+        <div class="timeline-item">
+          <div class="timeline-node active">1</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Product Management Intern</div>
+                <div class="card-company">SurgePV Solar</div>
+              </div>
+              <div class="card-period">May '25 - Aug '25</div>
+            </div>
             <ul class="card-highlights">
-              <li>$2M+ integration opportunities</li>
-              <li>+12% user retention</li>
-              <li>95% milestone completion</li>
+              <li>🤖 Led Clara AI to 85% accuracy</li>
+              <li>⚡ -40% design-to-quote cycle</li>
+              <li>🎨 25+ UI upgrades</li>
+              <li>📈 80% feature adoption</li>
             </ul>
           </div>
-          
-          <!-- Node 2 - Timechain (Jun'23) -->
-          <div class="timeline-node" style="left:378px;top:128px">2</div>
-          <div class="node-card" style="left:318px;top:185px">
-            <div class="card-period">Jun '23 - Aug '23</div>
-            <div class="card-role">Product Management Intern</div>
-            <div class="card-company">Timechain Labs</div>
+        </div>
+
+        <!-- Experience 2 - Exotel -->
+        <div class="timeline-item">
+          <div class="timeline-node">2</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Strategy & Finance Intern</div>
+                <div class="card-company">Exotel</div>
+              </div>
+              <div class="card-period">Jun '24 - Aug '24</div>
+            </div>
             <ul class="card-highlights">
-              <li>+15% delivery, 6 Web3 products</li>
-              <li>+25% user retention</li>
-              <li>Blockchain team lead</li>
+              <li>💰 +7% monetization</li>
+              <li>🤖 GenAI chatbots integration</li>
+              <li>⏱️ -35% response time</li>
+              <li>📊 3 growth opportunities identified</li>
             </ul>
           </div>
-          
-          <!-- Node 3 - Nous (Feb'24) -->
-          <div class="timeline-node" style="left:538px;top:278px">3</div>
-          <div class="node-card" style="left:478px;top:40px">
-            <div class="card-period">Feb '24 - Jun '24</div>
-            <div class="card-role">PM & Strategy Intern</div>
-            <div class="card-company">Nous</div>
+        </div>
+
+        <!-- Experience 3 - Nous -->
+        <div class="timeline-item">
+          <div class="timeline-node">3</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">PM & Strategy Intern</div>
+                <div class="card-company">Nous</div>
+              </div>
+              <div class="card-period">Feb '24 - Jun '24</div>
+            </div>
             <ul class="card-highlights">
-              <li>Apple Shortcuts platform</li>
-              <li>6-member team, 150+ signups</li>
-              <li>76% feature adoption</li>
+              <li>🍎 Apple Shortcuts platform</li>
+              <li>👥 6-member team lead</li>
+              <li>🚀 150+ early signups</li>
+              <li>✅ 76% feature adoption</li>
             </ul>
           </div>
-          
-          <!-- Node 4 - Exotel (Jun'24) -->
-          <div class="timeline-node" style="left:718px;top:278px">4</div>
-          <div class="node-card" style="left:658px;top:40px">
-            <div class="card-period">Jun '24 - Aug '24</div>
-            <div class="card-role">Strategy & Finance Intern</div>
-            <div class="card-company">Exotel</div>
+        </div>
+
+        <!-- Experience 4 - Timechain -->
+        <div class="timeline-item">
+          <div class="timeline-node">4</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Product Management Intern</div>
+                <div class="card-company">Timechain Labs</div>
+              </div>
+              <div class="card-period">Jun '23 - Aug '23</div>
+            </div>
             <ul class="card-highlights">
-              <li>+7% monetization</li>
-              <li>GenAI chatbots, -35% response</li>
-              <li>3 growth opportunities</li>
+              <li>⛓️ 6 Web3 products shipped</li>
+              <li>📈 +15% delivery efficiency</li>
+              <li>🔄 +25% user retention</li>
+              <li>👨‍💼 Blockchain team lead</li>
             </ul>
           </div>
-          
-          <!-- Node 5 - SurgePV (May'25) - CURRENT -->
-          <div class="timeline-node active" style="left:1058px;top:128px">5</div>
-          <div class="node-card" style="left:998px;top:185px">
-            <div class="card-period">May '25 - Aug '25</div>
-            <div class="card-role">Product Management Intern</div>
-            <div class="card-company">SurgePV Solar</div>
+        </div>
+
+        <!-- Experience 5 - Knoct -->
+        <div class="timeline-item">
+          <div class="timeline-node">5</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Business Strategy Intern</div>
+                <div class="card-company">Knoct</div>
+              </div>
+              <div class="card-period">Apr '23 - Jun '23</div>
+            </div>
             <ul class="card-highlights">
-              <li>Led AI integration, Clara AI to 85%</li>
-              <li>-40% design-to-quote cycle</li>
-              <li>25+ UI upgrades, 80% adoption</li>
+              <li>💵 $2M+ integration opportunities</li>
+              <li>📊 +12% user retention</li>
+              <li>✅ 95% milestone completion</li>
             </ul>
-          </div>
-          
-          <!-- End flag (present) -->
-          <div class="timeline-flag" style="left:1300px;top:280px">
-            <span class="icon">🏁</span>
-            <span>Present</span>
           </div>
         </div>
       </div>
-      
-      <div class="timeline-controls">
-        <button class="timeline-btn" id="careerPrev" aria-label="Previous">‹</button>
-        <button class="timeline-btn" id="careerNext" aria-label="Next">›</button>
+
+      <!-- Divider -->
+      <div class="section-divider reveal">
+        <span>🎓</span>
       </div>
 
       <!-- IIT Kharagpur Section -->
       <h2 class="section-title reveal">Journey at IIT Kharagpur</h2>
       <p class="section-subtitle reveal">Positions of responsibility and campus leadership.</p>
       
-      <div class="serpentine-wrapper reveal" id="iitWrapper">
-        <div class="serpentine-timeline">
-          <!-- SVG Serpentine Path -->
-          <svg class="serpentine-path" viewBox="0 0 1400 400" preserveAspectRatio="none">
-            <path d="M 60,300 
-                     C 120,300 180,300 240,250
-                     C 300,200 340,150 400,150
-                     C 460,150 500,200 560,250
-                     C 620,300 680,300 740,300
-                     C 800,300 860,300 920,250
-                     C 980,200 1020,150 1080,150
-                     C 1140,150 1180,200 1240,250
-                     C 1300,300 1340,300 1340,300" />
-          </svg>
-          
-          <!-- Start flag -->
-          <div class="timeline-flag" style="left:40px;top:320px">
-            <span class="icon">🚀</span>
-            <span>Start</span>
-          </div>
-          
-          <!-- Node 1 - Optima (Oldest) -->
-          <div class="timeline-node" style="left:218px;top:278px">1</div>
-          <div class="node-card" style="left:158px;top:40px">
-            <div class="card-period">Founding Team</div>
-            <div class="card-role">PR & Media Outreach Lead</div>
-            <div class="card-company">Optima IIT Kharagpur</div>
+      <div class="timeline">
+        <!-- Role 1 - E-Cell Manager (Current) -->
+        <div class="timeline-item">
+          <div class="timeline-node active">1</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Startups & Alumni Relations</div>
+                <div class="card-company">E-Cell IIT Kharagpur</div>
+              </div>
+              <div class="card-period">Associate Manager</div>
+            </div>
             <ul class="card-highlights">
-              <li>Revived fest after 12 years</li>
-              <li>Led 22 Heads, 35 Subheads</li>
+              <li>💼 ₹40L CRM implementation</li>
+              <li>💸 80% cost reduction</li>
+              <li>📝 1400+ applicants managed</li>
+              <li>🎯 120+ placement offers</li>
+              <li>📈 300% YoY growth</li>
             </ul>
-          </div>
-          
-          <!-- Node 2 - E-Cell Associate Member -->
-          <div class="timeline-node" style="left:378px;top:128px">2</div>
-          <div class="node-card" style="left:318px;top:185px">
-            <div class="card-period">Associate Member</div>
-            <div class="card-role">Startups & Social Media</div>
-            <div class="card-company">E-Cell IIT Kharagpur</div>
-            <ul class="card-highlights">
-              <li>75+ startups meet, 35% YoY</li>
-              <li>850+ attendees, 72% YoY</li>
-              <li>50K social impressions</li>
-            </ul>
-          </div>
-          
-          <!-- Node 3 - Inter-IIT Cultural Meet -->
-          <div class="timeline-node" style="left:538px;top:278px">3</div>
-          <div class="node-card" style="left:478px;top:40px">
-            <div class="card-period">May '23 - Oct '23</div>
-            <div class="card-role">Head Core Operations</div>
-            <div class="card-company">Inter-IIT Cultural 6.0</div>
-            <ul class="card-highlights">
-              <li>Logistics for 25+ events</li>
-              <li>3000+ participants, 5-day stay</li>
-              <li>₹1.2Cr budget, ₹10L+ sponsors</li>
-            </ul>
-          </div>
-          
-          <!-- Node 4 - Product Club Co-Founder -->
-          <div class="timeline-node" style="left:718px;top:278px">4</div>
-          <div class="node-card" style="left:658px;top:40px">
-            <div class="card-period">Co-Founder</div>
-            <div class="card-role">Founding Member</div>
-            <div class="card-company">Product Club IIT KGP</div>
-            <ul class="card-highlights">
-              <li>PM ecosystem for 15K+ students</li>
-              <li>Led team of 15 batchmates</li>
-            </ul>
-          </div>
-          
-          <!-- Node 5 - E-Cell Associate Manager (Current) -->
-          <div class="timeline-node active" style="left:1058px;top:128px">5</div>
-          <div class="node-card" style="left:998px;top:185px">
-            <div class="card-period">Associate Manager</div>
-            <div class="card-role">Startups & Alumni Relations</div>
-            <div class="card-company">E-Cell IIT Kharagpur</div>
-            <ul class="card-highlights">
-              <li>₹40L CRM, 80% cost cut</li>
-              <li>1400+ applicants, 120+ offers</li>
-              <li>300% YoY, 17 interns led</li>
-            </ul>
-          </div>
-          
-          <!-- End flag -->
-          <div class="timeline-flag" style="left:1300px;top:280px">
-            <span class="icon">🎓</span>
-            <span>Present</span>
           </div>
         </div>
-      </div>
-      
-      <div class="timeline-controls">
-        <button class="timeline-btn" id="iitPrev" aria-label="Previous">‹</button>
-        <button class="timeline-btn" id="iitNext" aria-label="Next">›</button>
+
+        <!-- Role 2 - Product Club -->
+        <div class="timeline-item">
+          <div class="timeline-node">2</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Co-Founder</div>
+                <div class="card-company">Product Club IIT KGP</div>
+              </div>
+              <div class="card-period">Founding Team</div>
+            </div>
+            <ul class="card-highlights">
+              <li>🏗️ Built PM ecosystem for 15K+ students</li>
+              <li>👥 Team of 15 batchmates</li>
+              <li>📚 Workshops & case study competitions</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 3 - Inter-IIT Cultural -->
+        <div class="timeline-item">
+          <div class="timeline-node">3</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Head Core Operations</div>
+                <div class="card-company">Inter-IIT Cultural 6.0</div>
+              </div>
+              <div class="card-period">May '23 - Oct '23</div>
+            </div>
+            <ul class="card-highlights">
+              <li>🎪 25+ events logistics</li>
+              <li>👥 3000+ participants</li>
+              <li>💰 ₹1.2Cr budget managed</li>
+              <li>🤝 ₹10L+ sponsorship raised</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 4 - E-Cell Associate -->
+        <div class="timeline-item">
+          <div class="timeline-node">4</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">Startups & Social Media</div>
+                <div class="card-company">E-Cell IIT Kharagpur</div>
+              </div>
+              <div class="card-period">Associate Member</div>
+            </div>
+            <ul class="card-highlights">
+              <li>🚀 75+ startups meet organized</li>
+              <li>📈 35% YoY growth</li>
+              <li>👥 850+ attendees</li>
+              <li>📱 50K social impressions</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Role 5 - Optima -->
+        <div class="timeline-item">
+          <div class="timeline-node">5</div>
+          <div class="timeline-card">
+            <div class="card-header">
+              <div>
+                <div class="card-role">PR & Media Outreach Lead</div>
+                <div class="card-company">Optima IIT Kharagpur</div>
+              </div>
+              <div class="card-period">Founding Team</div>
+            </div>
+            <ul class="card-highlights">
+              <li>🎉 Revived fest after 12 years</li>
+              <li>👨‍💼 Led 22 Heads, 35 Subheads</li>
+              <li>📰 Campus-wide media coverage</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -438,11 +618,16 @@
   </div>
 
   <script>
-    // Reveal animations
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in-view'); })
-    },{threshold:0.12});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // Reveal animations for timeline items
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { 
+        if(e.isIntersecting) {
+          e.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
 
     // Dark Mode Toggle
     const themeToggle = document.getElementById('themeToggle');
@@ -458,25 +643,6 @@
       localStorage.setItem('theme', newTheme);
       themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     });
-
-    // Timeline scroll controls
-    function setupTimelineControls(wrapperId, prevBtnId, nextBtnId) {
-      const wrapper = document.getElementById(wrapperId);
-      const prevBtn = document.getElementById(prevBtnId);
-      const nextBtn = document.getElementById(nextBtnId);
-      const scrollAmount = 400;
-
-      prevBtn.addEventListener('click', () => {
-        wrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-
-      nextBtn.addEventListener('click', () => {
-        wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
-    }
-
-    setupTimelineControls('careerWrapper', 'careerPrev', 'careerNext');
-    setupTimelineControls('iitWrapper', 'iitPrev', 'iitNext');
   </script>
 </body>
 </html>
