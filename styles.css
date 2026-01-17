@@ -1,0 +1,353 @@
+/* ==========================================================================
+   Portfolio Common Styles
+   Unified CSS for all pages with consistent dark/light mode support
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS Variables - Light Theme (Default)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Background colors */
+  --bg: #ffffff;
+  --card-bg: #fafafa;
+  --card-bg-alt: #f5f5f5;
+  --badge-bg: #f0f0f0;
+  
+  /* Text colors */
+  --text: #1a1a1a;
+  --muted: #666666;
+  
+  /* Border & accent */
+  --border: #e5e5e5;
+  --accent: #3fa9eb;
+  --accent-hover: #1da1f2;
+  
+  /* Timing */
+  --transition: 200ms ease-in-out;
+  --transform-transition: 300ms cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   CSS Variables - Dark Theme
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+  --bg: #1e242e;
+  --card-bg: #2d3748;
+  --card-bg-alt: #374151;
+  --badge-bg: #4a5568;
+  
+  --text: #e6e6e6;
+  --muted: #999999;
+  
+  --border: #4a5568;
+  --accent: #3fa9eb;
+  --accent-hover: #1da1f2;
+}
+
+/* --------------------------------------------------------------------------
+   Reset & Base Styles
+   -------------------------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover, a:active {
+  outline: 0;
+  opacity: 0.7;
+}
+
+button, input, optgroup, select, textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+button {
+  overflow: visible;
+  cursor: pointer;
+}
+
+button, [type="button"], [type="reset"] {
+  -webkit-appearance: button;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+img {
+  border: 0;
+  max-width: 100%;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 48px 40px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Navigation & Header
+   -------------------------------------------------------------------------- */
+header {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+nav > div:first-child {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color var(--transition);
+}
+
+nav a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Theme Toggle Button
+   -------------------------------------------------------------------------- */
+.theme-toggle {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 60px 0;
+  margin-top: 120px;
+}
+
+.footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-value {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.contact-value:hover {
+  color: var(--accent-hover);
+  opacity: 1;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+  text-align: center;
+}
+
+.footer-quote {
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Skip Link (Accessibility)
+   -------------------------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  z-index: 9999;
+  background: #111;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transform: translateY(-120%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Animations
+   -------------------------------------------------------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--transition), transform var(--transform-transition);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Page Titles
+   -------------------------------------------------------------------------- */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 60px 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.page-subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 48px;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* --------------------------------------------------------------------------
+   Common Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 2px solid var(--accent);
+  transition: all var(--transition);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(63, 169, 235, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(63, 169, 235, 0.35);
+  opacity: 1;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+
+.btn-secondary:hover {
+  background: var(--accent);
+  color: #fff;
+  opacity: 1;
+}

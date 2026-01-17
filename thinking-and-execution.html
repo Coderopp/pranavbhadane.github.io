@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thinking & Execution — Pranav Bhadane</title>
+  <meta name="description" content="Essays on product strategy, AI systems, and lessons learned building at scale." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-title{margin:48px 0 48px}
+
+    /* Bento Grid for Blog Posts */
+    .blog-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:20px;
+      margin-bottom:80px;
+    }
+
+    .blog-card{
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:24px;
+      transition:all var(--transition);
+      cursor:pointer;
+      text-decoration:none;
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+      position:relative;
+    }
+
+    .blog-card:hover{
+      border-color:var(--text);
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      transform:translateY(-2px);
+      opacity:1;
+    }
+
+    /* Different card sizes */
+    .blog-card.large{grid-column:span 2;grid-row:span 2}
+    .blog-card.wide{grid-column:span 2}
+    .blog-card.tall{grid-row:span 2}
+
+    @media(max-width:768px){
+      .blog-card.large,.blog-card.wide,.blog-card.tall{
+        grid-column:span 1;
+        grid-row:span 1;
+      }
+    }
+
+    .blog-title{
+      font-size:1.1rem;
+      font-weight:600;
+      margin:0 0 12px 0;
+      line-height:1.4;
+      color:var(--text);
+    }
+
+    .blog-excerpt{
+      font-size:0.95rem;
+      color:var(--muted);
+      line-height:1.6;
+      margin-bottom:16px;
+      flex:1;
+    }
+
+    .blog-meta{
+      font-size:0.85rem;
+      color:var(--muted);
+      margin-top:auto;
+    }
+
+    .code-preview{
+      background:#1e1e1e;
+      border-radius:6px;
+      padding:16px;
+      margin:12px 0;
+      font-family:"JetBrains Mono",monospace;
+      font-size:0.85rem;
+      line-height:1.6;
+      color:#d4d4d4;
+      overflow-x:auto;
+    }
+
+    .code-preview .keyword{color:#569cd6}
+    .code-preview .string{color:#ce9178}
+    .code-preview .comment{color:#6a9955}
+
+    footer{margin-top:80px}
+    .footer-text{font-size:14px;color:var(--muted);text-align:center}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="container">
+    <header>
+      <nav aria-label="Primary Navigation">
+        <div style="font-weight:700">PB</div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <a href="index.html">Home</a>
+          <a href="career.html">Career</a>
+          <a href="decks.html">Decks</a>
+          <a href="thinking-and-execution.html">Thinking and Execution</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <h1 class="page-title">Thinking & Execution</h1>
+      
+      <div class="blog-grid">
+        <!-- Large Featured Post -->
+        <a href="blog/product-strategy-execution.html" class="blog-card large">
+          <h2 class="blog-title">Product Strategy | Execution in Success</h2>
+          <p class="blog-excerpt">Are your team's greatest blog expenses and e-maximization attrition product debt? Find out how we increased customer satisfaction, cut costs, and streamlined it all using product strategy, analysis, and devops transformation while fully committed systems, which clearly identify, teams, which...</p>
+          <div class="blog-meta">5 days ago</div>
+        </a>
+
+        <!-- Regular Posts -->
+        <a href="blog/enupptci-snippet.html" class="blog-card">
+          <h2 class="blog-title">Enuppci:cons to snippet, Meload</h2>
+          <div class="blog-meta">5 days ago</div>
+        </a>
+
+        <a href="blog/product-strategy-nixi.html" class="blog-card">
+          <h2 class="blog-title">Product Strategy | Nixing & Scalable Update</h2>
+          <div class="blog-meta">5 days ago</div>
+        </a>
+
+        <!-- Post with Code -->
+        <a href="blog/how-to-vote.html" class="blog-card wide">
+          <h2 class="blog-title">How to Vote Product Strategy| Execution</h2>
+          <p class="blog-excerpt">Hi aversion comment blog relisted cord vnd react are to overtake project conversion strategy. Simply employing using string through and concepts to vote ideas. Transparant stream enabled question and build strategy plant protocols: Matchless Transscment.</p>
+          <div class="code-preview">
+<span class="keyword">const</span> example = {
+  <span class="comment">// insert code...</span>
+  function: <span class="keyword">async</span> getProductExecution
+}
+          </div>
+          <div class="blog-meta">5 days ago</div>
+        </a>
+
+        <!-- More Posts -->
+        <a href="blog/how-to-support.html" class="blog-card">
+          <h2 class="blog-title">How to Support for Product & Product Dashboard</h2>
+          <div class="blog-meta">5 years ago</div>
+        </a>
+
+        <a href="blog/building-event.html" class="blog-card">
+          <h2 class="blog-title">Building & vaniabament Event to ms pl</h2>
+          <div class="blog-meta">5 years ago</div>
+        </a>
+
+        <a href="blog/smaller-project.html" class="blog-card">
+          <h2 class="blog-title">Smaller Project Updates</h2>
+          <div class="blog-meta">5 years ago</div>
+        </a>
+
+        <a href="blog/lawson-stark.html" class="blog-card">
+          <h2 class="blog-title">Lawson Stark Statement Booth</h2>
+          <div class="blog-meta">5 years ago</div>
+        </a>
+
+        <!-- Tall Post -->
+        <a href="blog/vote-prod.html" class="blog-card tall">
+          <h2 class="blog-title">Undernevat fove Yix ovode to disne</h2>
+          <div class="blog-meta">5 years ago</div>
+        </a>
+
+        <a href="blog/thinking-execution.html" class="blog-card">
+          <h2 class="blog-title">Thinking & Execution</h2>
+          <p class="blog-excerpt">Find import deep posts to answer evarything ov flows lhe onend of even of to overt product stirdless > tts x deveioper, we never testand and then</p>
+          <div class="blog-meta">5 years ago</div>
+        </a>
+
+        <a href="blog/product-strategy-execution2.html" class="blog-card">
+          <h2 class="blog-title">Product Strategy | Execution</h2>
+          <div class="blog-meta">5 years ago</div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-text">© 2026 Pranav Bhadane. Built with intention.</div>
+    </footer>
+  </div>
+
+  <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      const theme = html.getAttribute('data-theme');
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
+</body>
+</html>

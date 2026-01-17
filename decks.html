@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Strategy Decks — Pranav Bhadane</title>
+  <meta name="description" content="Product strategy decks and frameworks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+  <style>
+    /* Horizontal Scrolling Deck Carousel */
+    .deck-carousel-section{margin:60px 0 80px}
+    .carousel-title{font-size:1.5rem;font-weight:700;margin-bottom:24px;color:var(--text)}
+    .deck-carousel{
+      display:flex;
+      gap:20px;
+      overflow-x:auto;
+      scroll-behavior:smooth;
+      padding:20px 0;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+    .deck-carousel::-webkit-scrollbar{display:none}
+    
+    .carousel-card{
+      min-width:280px;
+      height:180px;
+      background:linear-gradient(135deg,#2d3748 0%,#1e2d36 100%);
+      border-radius:12px;
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      cursor:pointer;
+      transition:all var(--transition);
+      border:1px solid var(--border);
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .carousel-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 24px rgba(63,169,235,0.2);
+      border-color:var(--accent);
+    }
+    
+    .carousel-card.dark{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)}
+    .carousel-card.purple{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
+    .carousel-card.green{background:linear-gradient(135deg,#56ab2f 0%,#a8e063 100%)}
+    .carousel-card.blue{background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)}
+    
+    .carousel-card-title{
+      font-size:1.2rem;
+      font-weight:700;
+      color:#fff;
+      margin:0;
+      line-height:1.3;
+    }
+    
+    .carousel-card-desc{
+      font-size:0.9rem;
+      color:rgba(255,255,255,0.8);
+      margin:12px 0 0 0;
+    }
+    
+    .carousel-card-icon{
+      font-size:2rem;
+      opacity:0.3;
+      position:absolute;
+      right:20px;
+      bottom:20px;
+    }
+    
+    .carousel-controls{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:20px;
+    }
+    
+    .carousel-btn{
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all var(--transition);
+      color:var(--text);
+      font-size:18px;
+    }
+    
+    .carousel-btn:hover{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    /* Minimal Deck Cards - Julian.com Style */
+    .deck-wrap{display:grid;gap:16px}
+    .deck-card{
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:32px;
+      transition:all var(--transition);
+      cursor:pointer;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:24px;
+      align-items:center;
+      text-decoration:none;
+      color:inherit;
+    }
+    .deck-card:hover{
+      border-color:var(--accent);
+      box-shadow:0 4px 16px rgba(63,169,235,0.12);
+    }
+    
+    .deck-content h3{
+      font-size:1.4rem;
+      font-weight:700;
+      color:var(--text);
+      margin:0 0 8px 0;
+    }
+    .deck-content p{
+      color:var(--muted);
+      font-size:0.95rem;
+      line-height:1.6;
+      margin:0;
+    }
+    
+    .deck-action{
+      color:var(--accent);
+      font-size:0.9rem;
+      font-weight:600;
+      white-space:nowrap;
+      transition:transform var(--transition);
+    }
+    .deck-card:hover .deck-action{
+      transform:translateX(4px);
+    }
+
+    /* PDF Modal */
+    #pdf-modal{display:none}
+    #pdf-modal[aria-hidden="false"]{display:block}
+    #pdf-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+    #pdf-backdrop > div{background:var(--bg);width:90vw;height:90vh;border-radius:8px;position:relative;display:flex;flex-direction:column;overflow:hidden}
+    #pdf-close{position:absolute;right:12px;top:12px;background:transparent;border:none;font-size:20px;cursor:pointer;padding:4px;z-index:2;color:var(--text)}
+    .pdf-toolbar{padding:12px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);background:var(--card-bg)}
+    .pdf-toolbar button{padding:8px 12px;border:1px solid var(--border);background:var(--bg);border-radius:4px;cursor:pointer;transition:all var(--transition);color:var(--text)}
+    .pdf-toolbar button:hover{background:var(--card-bg-alt)}
+    .pdf-canvas-area{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:12px;background:var(--card-bg-alt)}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="container">
+    <header>
+      <nav aria-label="Primary Navigation">
+        <div style="font-weight:700">PB</div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <a href="index.html">Home</a>
+          <a href="career.html">Career</a>
+          <a href="decks.html">Decks</a>
+          <a href="thinking-and-execution.html">Thinking and Execution</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <h1 class="page-title reveal">Strategic Decks</h1>
+      <p class="page-subtitle reveal">Product strategy frameworks, competitive analysis, and design documentation.</p>
+      
+      <!-- Horizontal Scrolling Carousel -->
+      <section class="deck-carousel-section reveal">
+        <h2 class="carousel-title">Strategic Experience</h2>
+        <div class="deck-carousel" id="deckCarousel">
+          <div class="carousel-card dark" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+            <div>
+              <h3 class="carousel-card-title">Product Decks</h3>
+              <p class="carousel-card-desc">Strategy & GTM frameworks</p>
+            </div>
+            <div class="carousel-card-icon">📊</div>
+          </div>
+
+          <div class="carousel-card purple" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+            <div>
+              <h3 class="carousel-card-title">Product Strategy Illustration</h3>
+              <p class="carousel-card-desc">Visual frameworks & concepts</p>
+            </div>
+            <div class="carousel-card-icon">🎨</div>
+          </div>
+
+          <div class="carousel-card green" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+            <div>
+              <h3 class="carousel-card-title">Product Decks</h3>
+              <p class="carousel-card-desc">Architecture & system design</p>
+            </div>
+            <div class="carousel-card-icon">📱</div>
+          </div>
+
+          <div class="carousel-card blue" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+            <div>
+              <h3 class="carousel-card-title">Constrained Base Case</h3>
+              <p class="carousel-card-desc">Research & analysis</p>
+            </div>
+            <div class="carousel-card-icon">📄</div>
+          </div>
+
+          <div class="carousel-card dark" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+            <div>
+              <h3 class="carousel-card-title">User Research Insights</h3>
+              <p class="carousel-card-desc">Customer discovery & validation</p>
+            </div>
+            <div class="carousel-card-icon">👥</div>
+          </div>
+        </div>
+        
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn" aria-label="Previous">‹</button>
+          <button class="carousel-btn" id="nextBtn" aria-label="Next">›</button>
+        </div>
+      </section>
+
+      <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:24px;color:var(--text)">All Decks</h2>
+      <div class="deck-wrap reveal" aria-label="Strategy decks">
+        <a href="case-studies/risa-ai-browser.html" class="deck-card" aria-labelledby="deck0-title">
+          <div class="deck-content">
+            <h3 id="deck0-title">RISA — AI Browser Workflows</h3>
+            <p>Market analysis for AI-powered browser automation: $2.1B to $15B opportunity at 27.7% CAGR.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/produscope-student-finance.html" class="deck-card" aria-labelledby="deck0b-title">
+          <div class="deck-content">
+            <h3 id="deck0b-title">Produscope 2025 — Student Finance App</h3>
+            <p>Building a smarter financial tool for college students with gamified budgeting and savings.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/mars-colonization-strategy.html" class="deck-card" aria-labelledby="deck1-title">
+          <div class="deck-content">
+            <h3 id="deck1-title">Mars Colonization Strategy</h3>
+            <p>Designing an economically viable, environmentally sustainable, and scalable Mars civilization framework.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/wellbeingmate-mental-health.html" class="deck-card" aria-labelledby="deck2-title">
+          <div class="deck-content">
+            <h3 id="deck2-title">WellBeingMate — Corporate Mental Health</h3>
+            <p>Comprehensive mental health platform for corporate employees addressing workplace stress and well-being.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/hilabs-network-adequacy.html" class="deck-card" aria-labelledby="deck3-title">
+          <div class="deck-content">
+            <h3 id="deck3-title">HiLabs — CMS Network Adequacy Tool</h3>
+            <p>Compliance automation tool for network adequacy checks in Medicare, Medicaid, and Commercial insurance.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/product-strategy-frameworks.html" class="deck-card" aria-labelledby="deck4-title">
+          <div class="deck-content">
+            <h3 id="deck4-title">Product Strategy Frameworks</h3>
+            <p>Comprehensive frameworks for product positioning, market analysis, and strategic roadmap development.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/restoration-platform-gtm.html" class="deck-card" aria-labelledby="deck5-title">
+          <div class="deck-content">
+            <h3 id="deck5-title">Restoration Platform — Product & GTM Strategy</h3>
+            <p>End-to-end product strategy including competitive analysis, user research, and go-to-market planning.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/instigpt-architecture.html" class="deck-card" aria-labelledby="deck6-title">
+          <div class="deck-content">
+            <h3 id="deck6-title">InstiGPT — AI System Architecture</h3>
+            <p>Technical architecture and design documentation for campus-wide RAG-based chatbot system.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+
+        <a href="case-studies/enterprise-ai-adoption.html" class="deck-card" aria-labelledby="deck7-title">
+          <div class="deck-content">
+            <h3 id="deck7-title">Enterprise AI Adoption — Research Paper</h3>
+            <p>In-depth analysis of enterprise AI adoption trends, challenges, and strategic recommendations.</p>
+          </div>
+          <div class="deck-action">View Case Study →</div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <a href="mailto:pranavbhadane279@gmail.com" class="contact-value">pranavbhadane279@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Mobile</div>
+            <a href="tel:+919876543210" class="contact-value">+91 98765 43210</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Location</div>
+            <div style="color:var(--muted)">Kharagpur, India</div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-quote">"Ship to learn. Strong opinions, weakly held."</div>
+          <div class="footer-copyright">© 2026 Pranav Bhadane. Built with intention.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PDF Viewer Modal -->
+  <div id="pdf-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div id="pdf-backdrop">
+      <div role="document">
+        <button id="pdf-close" aria-label="Close PDF viewer">✕</button>
+        <div class="pdf-toolbar">
+          <button id="prev-page" aria-label="Previous page">◀</button>
+          <button id="next-page" aria-label="Next page">▶</button>
+          <div style="margin-left:8px;font-family:JetBrains Mono;font-size:14px" id="page-num">1 / 1</div>
+          <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+            <button id="zoom-out" aria-label="Zoom out">−</button>
+            <button id="zoom-in" aria-label="Zoom in">+</button>
+          </div>
+        </div>
+        <div class="pdf-canvas-area">
+          <canvas id="pdf-canvas" style="max-width:100%;height:auto;box-shadow:0 8px 24px rgba(2,6,23,.2)"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Reveal animations
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in-view'); })
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Carousel Auto-scroll
+    const carousel = document.getElementById('deckCarousel');
+    const prevButton = document.querySelector('#prevBtn');
+    const nextButton = document.querySelector('#nextBtn');
+    let autoScrollInterval;
+
+    function scrollCarousel(direction) {
+      const scrollAmount = 320; // card width + gap
+      const currentScroll = carousel.scrollLeft;
+      carousel.scrollTo({
+        left: direction === 'next' ? currentScroll + scrollAmount : currentScroll - scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    // Auto-scroll every 3 seconds
+    function startAutoScroll() {
+      autoScrollInterval = setInterval(() => {
+        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+        if (carousel.scrollLeft >= maxScroll) {
+          carousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          scrollCarousel('next');
+        }
+      }, 3000);
+    }
+
+    // Stop auto-scroll on hover
+    carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+    carousel.addEventListener('mouseleave', startAutoScroll);
+
+    // Manual controls
+    prevButton.addEventListener('click', () => {
+      clearInterval(autoScrollInterval);
+      scrollCarousel('prev');
+      startAutoScroll();
+    });
+
+    nextButton.addEventListener('click', () => {
+      clearInterval(autoScrollInterval);
+      scrollCarousel('next');
+      startAutoScroll();
+    });
+
+    // Click carousel cards to open PDF
+    document.querySelectorAll('.carousel-card').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.pdf));
+    });
+
+    // Start auto-scroll when page loads
+    startAutoScroll();
+
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      const theme = html.getAttribute('data-theme');
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // PDF Modal functionality
+    const modal = document.getElementById('pdf-modal');
+    const backdrop = document.getElementById('pdf-backdrop');
+    const canvas = document.getElementById('pdf-canvas');
+    const pageNumEl = document.getElementById('page-num');
+    const closeBtn = document.getElementById('pdf-close');
+    const prevBtn = document.getElementById('prev-page');
+    const nextBtn = document.getElementById('next-page');
+    const zoomIn = document.getElementById('zoom-in');
+    const zoomOut = document.getElementById('zoom-out');
+
+    let pdfDoc = null, currentPage = 1, scale = 1.2;
+    const MIN_SCALE = 0.6, MAX_SCALE = 3;
+
+    function openModal(pdfUrl){
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      loadPDF(pdfUrl);
+    }
+
+    function closeModal(){
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if(pdfDoc) pdfDoc = null;
+    }
+
+    async function loadPDF(url){
+      try{
+        const loadingTask = pdfjsLib.getDocument(url);
+        pdfDoc = await loadingTask.promise;
+        currentPage = 1;
+        scale = 1.2;
+        renderPage();
+      }catch(err){
+        console.error('PDF load error', err);
+        alert('Failed to load PDF');
+        closeModal();
+      }
+    }
+
+    async function renderPage(){
+      if(!pdfDoc) return;
+      const page = await pdfDoc.getPage(currentPage);
+      const viewport = page.getViewport({scale});
+      const ctx = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      const renderCtx = {canvasContext: ctx, viewport};
+      await page.render(renderCtx).promise;
+      pageNumEl.textContent = `${currentPage} / ${pdfDoc.numPages}`;
+    }
+
+    prevBtn.addEventListener('click', ()=>{ if(currentPage > 1){ currentPage--; renderPage(); } });
+    nextBtn.addEventListener('click', ()=>{ if(pdfDoc && currentPage < pdfDoc.numPages){ currentPage++; renderPage(); } });
+    zoomIn.addEventListener('click', ()=>{ scale = Math.min(MAX_SCALE, scale + 0.25); renderPage(); });
+    zoomOut.addEventListener('click', ()=>{ scale = Math.max(MIN_SCALE, scale - 0.25); renderPage(); });
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) closeModal(); });
+
+    document.addEventListener('keydown', (e)=>{
+      if(modal.style.display === 'block'){
+        if(e.key === 'Escape') closeModal();
+        if(e.key === 'ArrowRight') nextBtn.click();
+        if(e.key === 'ArrowLeft') prevBtn.click();
+      }
+    });
+
+    document.querySelectorAll('.deck-card').forEach(card=>{
+      card.addEventListener('click', ()=>openModal(card.dataset.pdf));
+      card.addEventListener('keydown', (e)=>{ 
+        if(e.key === 'Enter' || e.key === ' ') { 
+          e.preventDefault(); 
+          openModal(card.dataset.pdf); 
+        } 
+      });
+    });
+  </script>
+</body>
+</html>

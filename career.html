@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Career — Pranav Bhadane</title>
+  <meta name="description" content="Career journey and professional experience." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .section-title{font-size:2rem;font-weight:700;margin:60px 0 16px;letter-spacing:-0.02em}
+    .section-subtitle{color:var(--muted);font-size:1rem;margin-bottom:40px}
+
+    /* Horizontal Serpentine Timeline */
+    .serpentine-wrapper{
+      position:relative;
+      margin:40px 0 100px;
+      overflow-x:auto;
+      overflow-y:visible;
+      padding:20px 0 40px;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+    .serpentine-wrapper::-webkit-scrollbar{display:none}
+    
+    .serpentine-timeline{
+      position:relative;
+      min-width:1400px;
+      height:400px;
+      padding:0 60px;
+    }
+    
+    /* SVG dashed serpentine path */
+    .serpentine-path{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:0;
+    }
+    .serpentine-path path{
+      fill:none;
+      stroke:var(--accent);
+      stroke-width:3px;
+      stroke-dasharray:10 6;
+      stroke-linecap:round;
+    }
+    
+    /* Timeline nodes */
+    .timeline-node{
+      position:absolute;
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:var(--card-bg);
+      border:3px solid var(--accent);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:0.85rem;
+      color:var(--accent);
+      z-index:2;
+      transition:all var(--transition);
+      cursor:pointer;
+    }
+    .timeline-node:hover{
+      background:var(--accent);
+      color:#fff;
+      transform:scale(1.1);
+    }
+    .timeline-node.active{
+      background:var(--accent);
+      color:#fff;
+    }
+    
+    /* Cards */
+    .node-card{
+      position:absolute;
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:14px;
+      width:180px;
+      z-index:1;
+      transition:all var(--transition);
+    }
+    .node-card:hover{
+      border-color:var(--accent);
+      box-shadow:0 8px 24px rgba(63,169,235,0.15);
+    }
+    
+    .card-period{
+      font-family:"JetBrains Mono", monospace;
+      color:var(--accent);
+      font-size:0.65rem;
+      font-weight:600;
+      margin-bottom:4px;
+    }
+    .card-role{font-size:0.85rem;font-weight:700;margin-bottom:2px;line-height:1.2}
+    .card-company{color:var(--muted);font-size:0.75rem;margin-bottom:6px}
+    .card-highlights{list-style:none;padding:0;margin:0}
+    .card-highlights li{
+      font-size:0.7rem;
+      color:var(--muted);
+      margin:3px 0;
+      padding-left:10px;
+      position:relative;
+      line-height:1.3;
+    }
+    .card-highlights li::before{
+      content:'→';
+      position:absolute;
+      left:0;
+      color:var(--accent);
+      font-weight:600;
+      font-size:0.6rem;
+    }
+    
+    /* Flags */
+    .timeline-flag{
+      position:absolute;
+      z-index:3;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      color:var(--muted);
+      font-size:0.8rem;
+    }
+    .timeline-flag .icon{font-size:1.3rem}
+    
+    /* Scroll controls */
+    .timeline-controls{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-top:24px;
+    }
+    .timeline-btn{
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all var(--transition);
+      color:var(--text);
+      font-size:20px;
+    }
+    .timeline-btn:hover{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="container">
+    <header>
+      <nav aria-label="Primary Navigation">
+        <div style="font-weight:700">PB</div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <a href="index.html">Home</a>
+          <a href="career.html">Career</a>
+          <a href="decks.html">Decks</a>
+          <a href="thinking-and-execution.html">Thinking and Execution</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- Career Journey Section -->
+      <h1 class="page-title reveal">Career Journey</h1>
+      <p class="section-subtitle reveal">My professional experience across product, strategy, and technology.</p>
+      
+      <div class="serpentine-wrapper reveal" id="careerWrapper">
+        <div class="serpentine-timeline">
+          <!-- SVG Serpentine Path -->
+          <svg class="serpentine-path" viewBox="0 0 1400 400" preserveAspectRatio="none">
+            <path d="M 60,300 
+                     C 120,300 180,300 240,250
+                     C 300,200 340,150 400,150
+                     C 460,150 500,200 560,250
+                     C 620,300 680,300 740,300
+                     C 800,300 860,300 920,250
+                     C 980,200 1020,150 1080,150
+                     C 1140,150 1180,200 1240,250
+                     C 1300,300 1340,300 1340,300" />
+          </svg>
+          
+          <!-- Start flag (oldest) -->
+          <div class="timeline-flag" style="left:40px;top:320px">
+            <span class="icon">🚀</span>
+            <span>Start</span>
+          </div>
+          
+          <!-- Node 1 - Oldest: Knoct (Apr'23) -->
+          <div class="timeline-node" style="left:218px;top:278px">1</div>
+          <div class="node-card" style="left:158px;top:40px">
+            <div class="card-period">Apr '23 - Jun '23</div>
+            <div class="card-role">Business Strategy Intern</div>
+            <div class="card-company">Knoct</div>
+            <ul class="card-highlights">
+              <li>$2M+ integration opportunities</li>
+              <li>+12% user retention</li>
+              <li>95% milestone completion</li>
+            </ul>
+          </div>
+          
+          <!-- Node 2 - Timechain (Jun'23) -->
+          <div class="timeline-node" style="left:378px;top:128px">2</div>
+          <div class="node-card" style="left:318px;top:185px">
+            <div class="card-period">Jun '23 - Aug '23</div>
+            <div class="card-role">Product Management Intern</div>
+            <div class="card-company">Timechain Labs</div>
+            <ul class="card-highlights">
+              <li>+15% delivery, 6 Web3 products</li>
+              <li>+25% user retention</li>
+              <li>Blockchain team lead</li>
+            </ul>
+          </div>
+          
+          <!-- Node 3 - Nous (Feb'24) -->
+          <div class="timeline-node" style="left:538px;top:278px">3</div>
+          <div class="node-card" style="left:478px;top:40px">
+            <div class="card-period">Feb '24 - Jun '24</div>
+            <div class="card-role">PM & Strategy Intern</div>
+            <div class="card-company">Nous</div>
+            <ul class="card-highlights">
+              <li>Apple Shortcuts platform</li>
+              <li>6-member team, 150+ signups</li>
+              <li>76% feature adoption</li>
+            </ul>
+          </div>
+          
+          <!-- Node 4 - Exotel (Jun'24) -->
+          <div class="timeline-node" style="left:718px;top:278px">4</div>
+          <div class="node-card" style="left:658px;top:40px">
+            <div class="card-period">Jun '24 - Aug '24</div>
+            <div class="card-role">Strategy & Finance Intern</div>
+            <div class="card-company">Exotel</div>
+            <ul class="card-highlights">
+              <li>+7% monetization</li>
+              <li>GenAI chatbots, -35% response</li>
+              <li>3 growth opportunities</li>
+            </ul>
+          </div>
+          
+          <!-- Node 5 - SurgePV (May'25) - CURRENT -->
+          <div class="timeline-node active" style="left:1058px;top:128px">5</div>
+          <div class="node-card" style="left:998px;top:185px">
+            <div class="card-period">May '25 - Aug '25</div>
+            <div class="card-role">Product Management Intern</div>
+            <div class="card-company">SurgePV Solar</div>
+            <ul class="card-highlights">
+              <li>Led AI integration, Clara AI to 85%</li>
+              <li>-40% design-to-quote cycle</li>
+              <li>25+ UI upgrades, 80% adoption</li>
+            </ul>
+          </div>
+          
+          <!-- End flag (present) -->
+          <div class="timeline-flag" style="left:1300px;top:280px">
+            <span class="icon">🏁</span>
+            <span>Present</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline-controls">
+        <button class="timeline-btn" id="careerPrev" aria-label="Previous">‹</button>
+        <button class="timeline-btn" id="careerNext" aria-label="Next">›</button>
+      </div>
+
+      <!-- IIT Kharagpur Section -->
+      <h2 class="section-title reveal">Journey at IIT Kharagpur</h2>
+      <p class="section-subtitle reveal">Positions of responsibility and campus leadership.</p>
+      
+      <div class="serpentine-wrapper reveal" id="iitWrapper">
+        <div class="serpentine-timeline">
+          <!-- SVG Serpentine Path -->
+          <svg class="serpentine-path" viewBox="0 0 1400 400" preserveAspectRatio="none">
+            <path d="M 60,300 
+                     C 120,300 180,300 240,250
+                     C 300,200 340,150 400,150
+                     C 460,150 500,200 560,250
+                     C 620,300 680,300 740,300
+                     C 800,300 860,300 920,250
+                     C 980,200 1020,150 1080,150
+                     C 1140,150 1180,200 1240,250
+                     C 1300,300 1340,300 1340,300" />
+          </svg>
+          
+          <!-- Start flag -->
+          <div class="timeline-flag" style="left:40px;top:320px">
+            <span class="icon">🚀</span>
+            <span>Start</span>
+          </div>
+          
+          <!-- Node 1 - Optima (Oldest) -->
+          <div class="timeline-node" style="left:218px;top:278px">1</div>
+          <div class="node-card" style="left:158px;top:40px">
+            <div class="card-period">Founding Team</div>
+            <div class="card-role">PR & Media Outreach Lead</div>
+            <div class="card-company">Optima IIT Kharagpur</div>
+            <ul class="card-highlights">
+              <li>Revived fest after 12 years</li>
+              <li>Led 22 Heads, 35 Subheads</li>
+            </ul>
+          </div>
+          
+          <!-- Node 2 - E-Cell Associate Member -->
+          <div class="timeline-node" style="left:378px;top:128px">2</div>
+          <div class="node-card" style="left:318px;top:185px">
+            <div class="card-period">Associate Member</div>
+            <div class="card-role">Startups & Social Media</div>
+            <div class="card-company">E-Cell IIT Kharagpur</div>
+            <ul class="card-highlights">
+              <li>75+ startups meet, 35% YoY</li>
+              <li>850+ attendees, 72% YoY</li>
+              <li>50K social impressions</li>
+            </ul>
+          </div>
+          
+          <!-- Node 3 - Inter-IIT Cultural Meet -->
+          <div class="timeline-node" style="left:538px;top:278px">3</div>
+          <div class="node-card" style="left:478px;top:40px">
+            <div class="card-period">May '23 - Oct '23</div>
+            <div class="card-role">Head Core Operations</div>
+            <div class="card-company">Inter-IIT Cultural 6.0</div>
+            <ul class="card-highlights">
+              <li>Logistics for 25+ events</li>
+              <li>3000+ participants, 5-day stay</li>
+              <li>₹1.2Cr budget, ₹10L+ sponsors</li>
+            </ul>
+          </div>
+          
+          <!-- Node 4 - Product Club Co-Founder -->
+          <div class="timeline-node" style="left:718px;top:278px">4</div>
+          <div class="node-card" style="left:658px;top:40px">
+            <div class="card-period">Co-Founder</div>
+            <div class="card-role">Founding Member</div>
+            <div class="card-company">Product Club IIT KGP</div>
+            <ul class="card-highlights">
+              <li>PM ecosystem for 15K+ students</li>
+              <li>Led team of 15 batchmates</li>
+            </ul>
+          </div>
+          
+          <!-- Node 5 - E-Cell Associate Manager (Current) -->
+          <div class="timeline-node active" style="left:1058px;top:128px">5</div>
+          <div class="node-card" style="left:998px;top:185px">
+            <div class="card-period">Associate Manager</div>
+            <div class="card-role">Startups & Alumni Relations</div>
+            <div class="card-company">E-Cell IIT Kharagpur</div>
+            <ul class="card-highlights">
+              <li>₹40L CRM, 80% cost cut</li>
+              <li>1400+ applicants, 120+ offers</li>
+              <li>300% YoY, 17 interns led</li>
+            </ul>
+          </div>
+          
+          <!-- End flag -->
+          <div class="timeline-flag" style="left:1300px;top:280px">
+            <span class="icon">🎓</span>
+            <span>Present</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline-controls">
+        <button class="timeline-btn" id="iitPrev" aria-label="Previous">‹</button>
+        <button class="timeline-btn" id="iitNext" aria-label="Next">›</button>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <a href="mailto:pranavbhadane279@gmail.com" class="contact-value">pranavbhadane279@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Mobile</div>
+            <a href="tel:+919876543210" class="contact-value">+91 98765 43210</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Location</div>
+            <div style="color:var(--muted)">Kharagpur, India</div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-quote">"Ship to learn. Strong opinions, weakly held."</div>
+          <div class="footer-copyright">© 2026 Pranav Bhadane. Built with intention.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Reveal animations
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in-view'); })
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      const theme = html.getAttribute('data-theme');
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // Timeline scroll controls
+    function setupTimelineControls(wrapperId, prevBtnId, nextBtnId) {
+      const wrapper = document.getElementById(wrapperId);
+      const prevBtn = document.getElementById(prevBtnId);
+      const nextBtn = document.getElementById(nextBtnId);
+      const scrollAmount = 400;
+
+      prevBtn.addEventListener('click', () => {
+        wrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    setupTimelineControls('careerWrapper', 'careerPrev', 'careerNext');
+    setupTimelineControls('iitWrapper', 'iitPrev', 'iitNext');
+  </script>
+</body>
+</html>

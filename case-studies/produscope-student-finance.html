@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Produscope 2025 — Student Finance App — Pranav Bhadane</title>
+  <meta name="description" content="Building a smarter financial tool for college students - addressing the 'Hisaab' problem with gamified budgeting and savings." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .back-link{color:var(--accent);text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;margin-top:40px}
+    .back-link:hover{opacity:0.8}
+    
+    .case-header{margin:40px 0 32px}
+    .case-badge{display:inline-block;background:var(--card-bg);color:var(--accent);padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:16px;border:1px solid var(--border)}
+    h1{font-size:2.2rem;font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin:0 0 16px}
+    .case-meta{color:var(--muted);font-size:0.95rem;margin-bottom:24px}
+    
+    .pdf-section{margin:40px 0}
+    .pdf-container{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .pdf-toolbar{padding:12px 16px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);background:var(--card-bg);flex-wrap:wrap}
+    .pdf-toolbar button{padding:8px 14px;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;transition:all var(--transition);color:var(--text);font-size:14px}
+    .pdf-toolbar button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .pdf-toolbar .page-info{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted)}
+    .pdf-canvas-wrapper{display:flex;align-items:center;justify-content:center;padding:24px;min-height:500px;background:var(--card-bg-alt, #f5f5f5);overflow:auto}
+    #pdf-canvas{max-width:100%;height:auto;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+    
+    .blog-section{margin:60px 0}
+    .blog-section h2{font-size:1.6rem;font-weight:700;margin-bottom:24px}
+    .blog-content{font-size:1.05rem;line-height:1.8;color:var(--text)}
+    .blog-content h3{font-size:1.3rem;margin:32px 0 16px;font-weight:700}
+    .blog-content p{margin:20px 0}
+    .blog-content ul,.blog-content ol{margin:20px 0;padding-left:28px}
+    .blog-content li{margin:10px 0;line-height:1.7}
+    .blog-content blockquote{border-left:4px solid var(--accent);padding-left:20px;margin:28px 0;font-style:italic;color:var(--muted)}
+    
+    .takeaways{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:24px;margin:32px 0}
+    .takeaways h4{font-size:1.1rem;margin-bottom:16px;color:var(--accent)}
+    .takeaways ul{list-style:none;padding:0;margin:0}
+    .takeaways li{padding:8px 0;padding-left:24px;position:relative;color:var(--text)}
+    .takeaways li::before{content:'✓';position:absolute;left:0;color:var(--accent);font-weight:700}
+    
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:32px 0}
+    .stat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+    .stat-value{font-size:1.6rem;font-weight:800;color:var(--accent)}
+    .stat-label{font-size:0.8rem;color:var(--muted);margin-top:4px}
+    
+    .persona-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+    .persona-name{font-weight:700;font-size:1.1rem;margin-bottom:8px}
+    .persona-desc{color:var(--muted);font-size:0.9rem}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav aria-label="Primary Navigation">
+        <div style="font-weight:700"><a href="../index.html" style="color:var(--text)">PB</a></div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <a href="../index.html">Home</a>
+          <a href="../career.html">Career</a>
+          <a href="../decks.html">Decks</a>
+          <a href="../thinking-and-execution.html">Thinking and Execution</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <a href="../decks.html" class="back-link">← Back to all decks</a>
+      
+      <div class="case-header">
+        <span class="case-badge">Produscope 2025 Case Study</span>
+        <h1>Student Finance App — The 'Hisaab' Problem</h1>
+        <p class="case-meta">Building a smarter financial tool for college students with gamified budgeting, round-up savings, and financial literacy. Team: Three's a Crowd.</p>
+      </div>
+
+      <!-- Problem Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">25.1%</div>
+          <div class="stat-label">Saving Challenges</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">26%</div>
+          <div class="stat-label">Student Loans</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">13.3%</div>
+          <div class="stat-label">Budgeting Issues</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">11.9%</div>
+          <div class="stat-label">Overspending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">11.8%</div>
+          <div class="stat-label">No Financial Knowledge</div>
+        </div>
+      </div>
+
+      <!-- PDF Viewer -->
+      <section class="pdf-section">
+        <div class="pdf-container">
+          <div class="pdf-toolbar">
+            <button id="prev-page">◀ Prev</button>
+            <button id="next-page">Next ▶</button>
+            <span class="page-info" id="page-info">Page 1 / 1</span>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button id="zoom-out">−</button>
+              <button id="zoom-in">+</button>
+              <button id="download-pdf">Download PDF</button>
+            </div>
+          </div>
+          <div class="pdf-canvas-wrapper">
+            <canvas id="pdf-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog Content -->
+      <section class="blog-section">
+        <h2>The 'Hisaab' Problem</h2>
+        <div class="blog-content">
+          <p>College students face unique financial challenges that existing apps don't address:</p>
+          <ul>
+            <li>Irregular income and spending driven by peer pressure</li>
+            <li>Difficulty tracking expenses across UPI and credit</li>
+            <li>Lack of financial literacy making budgeting harder</li>
+            <li>No student-first financial products in the market</li>
+          </ul>
+          
+          <h3>User Personas</h3>
+          
+          <div class="persona-card">
+            <div class="persona-name">👨‍💻 Aarav, 19 — College Topper & OG Coder</div>
+            <div class="persona-desc">
+              <strong>Background:</strong> Part-time intern, loves cafe hopping<br>
+              <strong>Pain Points:</strong> Lacks knowledge about managing income, no structured approach to saving, prioritizes lifestyle over wealth building<br>
+              <strong>Needs:</strong> An effective but fun way of incorporating budgeting and saving in day-to-day life
+            </div>
+          </div>
+          
+          <div class="persona-card">
+            <div class="persona-name">🦋 Meher, 23 — The Social Butterfly</div>
+            <div class="persona-desc">
+              <strong>Background:</strong> Frequent outings with friends, shopping, spends freely<br>
+              <strong>Pain Points:</strong> Wants to learn investing but loses interest, has credit card but doesn't know how to benefit from it<br>
+              <strong>Needs:</strong> Trustworthy and interesting way of learning investments, managing budget while out with groups
+            </div>
+          </div>
+          
+          <h3>Solution Features</h3>
+          <ul>
+            <li><strong>Round-up Savings</strong> — Automatic savings from every transaction</li>
+            <li><strong>Emergency Pot</strong> — Build safety net with gamification</li>
+            <li><strong>Financial Learning</strong> — Gamified lessons and quizzes</li>
+            <li><strong>Spending Analytics</strong> — Visual insights into spending patterns</li>
+            <li><strong>Peer Challenges</strong> — Social savings competitions</li>
+          </ul>
+          
+          <blockquote>
+            "Solve the 'Hisaab' problem with a student-first approach to money management."
+          </blockquote>
+          
+          <h3>Expected Metrics & Impact</h3>
+          <ul>
+            <li><strong>70% adoption</strong> of round-up savings feature</li>
+            <li><strong>5-7 mins/day</strong> session time on dashboard and quizzes</li>
+            <li><strong>60% 30-day retention</strong> via gamification</li>
+            <li><strong>&lt;20% churn rate</strong></li>
+            <li><strong>₹500/user/month</strong> in emergency pot savings</li>
+            <li><strong>15-20% decrease</strong> in non-essential spending</li>
+            <li><strong>NPS &gt;70</strong> from post-onboarding surveys</li>
+          </ul>
+          
+          <h3>Risks & Mitigations</h3>
+          <ul>
+            <li><strong>Adoption Risk</strong> — Beta pilots, incentives, A/B onboarding, NPS tracking</li>
+            <li><strong>Regulatory</strong> — Fintech partners, audits, RBI compliance updates</li>
+            <li><strong>Technical</strong> — 20% QA budget, rapid iterations, bug reporting</li>
+            <li><strong>Data Privacy</strong> — Encryption, clear policies, security audits</li>
+          </ul>
+        </div>
+        
+        <div class="takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Student finance requires a fundamentally different product approach</li>
+            <li>Gamification drives engagement and habit formation</li>
+            <li>Financial literacy must be woven into the core experience</li>
+            <li>Peer features create viral growth through word-of-mouth</li>
+            <li>Clear metrics and decision levers enable data-driven pivots</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-bottom">
+          <div class="footer-quote">"Ship to learn. Strong opinions, weakly held."</div>
+          <div class="footer-copyright">© 2026 Pranav Bhadane. Built with intention.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      const theme = html.getAttribute('data-theme');
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // PDF Viewer
+    const pdfUrl = '../assets/pdfs/produscope-student-finance.pdf';
+    const canvas = document.getElementById('pdf-canvas');
+    const pageInfo = document.getElementById('page-info');
+    let pdfDoc = null, currentPage = 1, scale = 1.2;
+
+    async function loadPDF() {
+      try {
+        pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+        renderPage();
+      } catch(err) {
+        canvas.parentElement.innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px">Failed to load PDF. <a href="' + pdfUrl + '" target="_blank">Download directly</a></p>';
+      }
+    }
+
+    async function renderPage() {
+      if (!pdfDoc) return;
+      const page = await pdfDoc.getPage(currentPage);
+      const viewport = page.getViewport({ scale });
+      const ctx = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      pageInfo.textContent = `Page ${currentPage} / ${pdfDoc.numPages}`;
+    }
+
+    document.getElementById('prev-page').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderPage(); } });
+    document.getElementById('next-page').addEventListener('click', () => { if (pdfDoc && currentPage < pdfDoc.numPages) { currentPage++; renderPage(); } });
+    document.getElementById('zoom-in').addEventListener('click', () => { scale = Math.min(3, scale + 0.2); renderPage(); });
+    document.getElementById('zoom-out').addEventListener('click', () => { scale = Math.max(0.5, scale - 0.2); renderPage(); });
+    document.getElementById('download-pdf').addEventListener('click', () => { window.open(pdfUrl, '_blank'); });
+
+    loadPDF();
+  </script>
+</body>
+</html>

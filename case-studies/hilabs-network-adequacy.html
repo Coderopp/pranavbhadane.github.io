@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HiLabs — CMS Network Adequacy Tool — Pranav Bhadane</title>
+  <meta name="description" content="APM case study for building a CMS compliance tool for network adequacy checks in Medicare, Medicaid, and Commercial insurance lines." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .back-link{color:var(--accent);text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;margin-top:40px}
+    .back-link:hover{opacity:0.8}
+    
+    .case-header{margin:40px 0 32px}
+    .case-badge{display:inline-block;background:var(--card-bg);color:var(--accent);padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:16px;border:1px solid var(--border)}
+    h1{font-size:2.2rem;font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin:0 0 16px}
+    .case-meta{color:var(--muted);font-size:0.95rem;margin-bottom:24px}
+    
+    .pdf-section{margin:40px 0}
+    .pdf-container{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .pdf-toolbar{padding:12px 16px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);background:var(--card-bg);flex-wrap:wrap}
+    .pdf-toolbar button{padding:8px 14px;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;transition:all var(--transition);color:var(--text);font-size:14px}
+    .pdf-toolbar button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .pdf-toolbar .page-info{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted)}
+    .pdf-canvas-wrapper{display:flex;align-items:center;justify-content:center;padding:24px;min-height:500px;background:var(--card-bg-alt, #f5f5f5);overflow:auto}
+    #pdf-canvas{max-width:100%;height:auto;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+    
+    .blog-section{margin:60px 0}
+    .blog-section h2{font-size:1.6rem;font-weight:700;margin-bottom:24px}
+    .blog-content{font-size:1.05rem;line-height:1.8;color:var(--text)}
+    .blog-content h3{font-size:1.3rem;margin:32px 0 16px;font-weight:700}
+    .blog-content p{margin:20px 0}
+    .blog-content ul,.blog-content ol{margin:20px 0;padding-left:28px}
+    .blog-content li{margin:10px 0;line-height:1.7}
+    .blog-content blockquote{border-left:4px solid var(--accent);padding-left:20px;margin:28px 0;font-style:italic;color:var(--muted)}
+    
+    .takeaways{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:24px;margin:32px 0}
+    .takeaways h4{font-size:1.1rem;margin-bottom:16px;color:var(--accent)}
+    .takeaways ul{list-style:none;padding:0;margin:0}
+    .takeaways li{padding:8px 0;padding-left:24px;position:relative;color:var(--text)}
+    .takeaways li::before{content:'✓';position:absolute;left:0;color:var(--accent);font-weight:700}
+    
+    .tech-stack{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+    .tech-tag{background:var(--card-bg);border:1px solid var(--border);padding:6px 12px;border-radius:6px;font-size:0.85rem;color:var(--text)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav aria-label="Primary Navigation">
+        <div style="font-weight:700"><a href="../index.html" style="color:var(--text)">PB</a></div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <a href="../index.html">Home</a>
+          <a href="../career.html">Career</a>
+          <a href="../decks.html">Decks</a>
+          <a href="../thinking-and-execution.html">Thinking and Execution</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <a href="../decks.html" class="back-link">← Back to all decks</a>
+      
+      <div class="case-header">
+        <span class="case-badge">APM Case Study 2024</span>
+        <h1>HiLabs — CMS Network Adequacy Tool</h1>
+        <p class="case-meta">Building a compliance automation tool to replicate CMS criteria for network adequacy checks, ensuring data accuracy across Medicare, Medicaid, and Commercial insurance lines.</p>
+      </div>
+
+      <!-- PDF Viewer -->
+      <section class="pdf-section">
+        <div class="pdf-container">
+          <div class="pdf-toolbar">
+            <button id="prev-page">◀ Prev</button>
+            <button id="next-page">Next ▶</button>
+            <span class="page-info" id="page-info">Page 1 / 1</span>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button id="zoom-out">−</button>
+              <button id="zoom-in">+</button>
+              <button id="download-pdf">Download PDF</button>
+            </div>
+          </div>
+          <div class="pdf-canvas-wrapper">
+            <canvas id="pdf-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog Content -->
+      <section class="blog-section">
+        <h2>Problem Statement</h2>
+        <div class="blog-content">
+          <p>Create a tool that replicates the CMS automated criteria to check process for network adequacy while ensuring data accuracy. This tool evaluates county-specialty pairs to identify gaps based on time, distance, and guidelines set by federal organizations.</p>
+          
+          <h3>Current Network Management Flow</h3>
+          <p>The existing process involves multiple manual steps prone to errors:</p>
+          <ol>
+            <li>Providers submit monthly reports to insurers</li>
+            <li>Insurers submit HSD reports to CMS</li>
+            <li>CMS evaluates network for compliance</li>
+            <li>Managers process data and upload to database</li>
+            <li>Provider data quality issues arise during this flow</li>
+            <li>Insurers identify gaps and recruit to fill them</li>
+          </ol>
+          
+          <h3>Key Assumptions</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Provider Databases</span>
+            <span class="tech-tag">Claim Databases</span>
+            <span class="tech-tag">HSD Tables</span>
+            <span class="tech-tag">CMS Guidelines</span>
+            <span class="tech-tag">Medicare/Medicaid Rules</span>
+          </div>
+          <ul>
+            <li><strong>Data Volume</strong> — Large-scale provider data with thousands of records</li>
+            <li><strong>Population Density</strong> — Evenly distributed in cities and villages</li>
+            <li><strong>AI Capabilities</strong> — Convert unstructured data to structured format and calculate metrics</li>
+            <li><strong>Update Frequency</strong> — Provider data updated monthly, compliance regulations change occasionally</li>
+            <li><strong>Data Formats</strong> — Multiple formats including Docs, PDFs, CSVs</li>
+          </ul>
+          
+          <h3>Solution Architecture</h3>
+          <p>The proposed tool provides a comprehensive dashboard for compliance checks:</p>
+          <ul>
+            <li><strong>Automated Criteria Checking</strong> — Replicate CMS process without manual intervention</li>
+            <li><strong>County-Specialty Pair Evaluation</strong> — Identify gaps based on time and distance</li>
+            <li><strong>Data Accuracy Validation</strong> — Ensure provider information is current and correct</li>
+            <li><strong>Multi-line Support</strong> — Handle Medicare, Medicaid, and Commercial insurance</li>
+          </ul>
+          
+          <blockquote>
+            "Automating compliance checks transforms a manual, error-prone process into a reliable, scalable system."
+          </blockquote>
+          
+          <h3>Dashboard Features</h3>
+          <p>Key details displayed about providers and regions:</p>
+          <ul>
+            <li>Provider availability by specialty and location</li>
+            <li>Time and distance metrics to nearest providers</li>
+            <li>Gap identification and severity scoring</li>
+            <li>Compliance status across all business lines</li>
+            <li>Historical trends and improvement tracking</li>
+          </ul>
+        </div>
+        
+        <div class="takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Network adequacy is critical for healthcare access and compliance</li>
+            <li>AI can transform unstructured provider data into actionable insights</li>
+            <li>Automation reduces manual errors and speeds up gap identification</li>
+            <li>Multi-line support enables comprehensive compliance management</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-bottom">
+          <div class="footer-quote">"Ship to learn. Strong opinions, weakly held."</div>
+          <div class="footer-copyright">© 2026 Pranav Bhadane. Built with intention.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      const theme = html.getAttribute('data-theme');
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // PDF Viewer
+    const pdfUrl = '../assets/pdfs/hilabs-network-adequacy.pdf';
+    const canvas = document.getElementById('pdf-canvas');
+    const pageInfo = document.getElementById('page-info');
+    let pdfDoc = null, currentPage = 1, scale = 1.2;
+
+    async function loadPDF() {
+      try {
+        pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+        renderPage();
+      } catch(err) {
+        canvas.parentElement.innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px">Failed to load PDF. <a href="' + pdfUrl + '" target="_blank">Download directly</a></p>';
+      }
+    }
+
+    async function renderPage() {
+      if (!pdfDoc) return;
+      const page = await pdfDoc.getPage(currentPage);
+      const viewport = page.getViewport({ scale });
+      const ctx = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      pageInfo.textContent = `Page ${currentPage} / ${pdfDoc.numPages}`;
+    }
+
+    document.getElementById('prev-page').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderPage(); } });
+    document.getElementById('next-page').addEventListener('click', () => { if (pdfDoc && currentPage < pdfDoc.numPages) { currentPage++; renderPage(); } });
+    document.getElementById('zoom-in').addEventListener('click', () => { scale = Math.min(3, scale + 0.2); renderPage(); });
+    document.getElementById('zoom-out').addEventListener('click', () => { scale = Math.max(0.5, scale - 0.2); renderPage(); });
+    document.getElementById('download-pdf').addEventListener('click', () => { window.open(pdfUrl, '_blank'); });
+
+    loadPDF();
+  </script>
+</body>
+</html>

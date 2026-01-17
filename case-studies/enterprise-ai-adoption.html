@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Enterprise AI Adoption — Research Paper — Pranav Bhadane</title>
+  <meta name="description" content="In-depth analysis of enterprise AI adoption trends, challenges, and strategic recommendations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+  <style>
+    .back-link{color:var(--accent);text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;margin-top:40px}
+    .back-link:hover{opacity:0.8}
+    
+    .case-header{margin:40px 0 32px}
+    .case-badge{display:inline-block;background:var(--card-bg);color:var(--accent);padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:16px;border:1px solid var(--border)}
+    h1{font-size:2.2rem;font-weight:800;line-height:1.2;letter-spacing:-0.02em;margin:0 0 16px}
+    .case-meta{color:var(--muted);font-size:0.95rem;margin-bottom:24px}
+    
+    .pdf-section{margin:40px 0}
+    .pdf-container{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .pdf-toolbar{padding:12px 16px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);background:var(--card-bg);flex-wrap:wrap}
+    .pdf-toolbar button{padding:8px 14px;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;transition:all var(--transition);color:var(--text);font-size:14px}
+    .pdf-toolbar button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .pdf-toolbar .page-info{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted)}
+    .pdf-canvas-wrapper{display:flex;align-items:center;justify-content:center;padding:24px;min-height:500px;background:var(--card-bg-alt, #f5f5f5);overflow:auto}
+    #pdf-canvas{max-width:100%;height:auto;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+    
+    .blog-section{margin:60px 0}
+    .blog-section h2{font-size:1.6rem;font-weight:700;margin-bottom:24px}
+    .blog-content{font-size:1.05rem;line-height:1.8;color:var(--text)}
+    .blog-content h3{font-size:1.3rem;margin:32px 0 16px;font-weight:700}
+    .blog-content p{margin:20px 0}
+    .blog-content ul,.blog-content ol{margin:20px 0;padding-left:28px}
+    .blog-content li{margin:10px 0;line-height:1.7}
+    .blog-content blockquote{border-left:4px solid var(--accent);padding-left:20px;margin:28px 0;font-style:italic;color:var(--muted)}
+    
+    .takeaways{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:24px;margin:32px 0}
+    .takeaways h4{font-size:1.1rem;margin-bottom:16px;color:var(--accent)}
+    .takeaways ul{list-style:none;padding:0;margin:0}
+    .takeaways li{padding:8px 0;padding-left:24px;position:relative;color:var(--text)}
+    .takeaways li::before{content:'✓';position:absolute;left:0;color:var(--accent);font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav aria-label="Primary Navigation">
+        <div style="font-weight:700"><a href="../index.html" style="color:var(--text)">PB</a></div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <a href="../index.html">Home</a>
+          <a href="../career.html">Career</a>
+          <a href="../decks.html">Decks</a>
+          <a href="../thinking-and-execution.html">Thinking and Execution</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <a href="../decks.html" class="back-link">← Back to all decks</a>
+      
+      <div class="case-header">
+        <span class="case-badge">Research Paper</span>
+        <h1>Enterprise AI Adoption — Research Paper</h1>
+        <p class="case-meta">In-depth analysis of enterprise AI adoption trends, challenges, and strategic recommendations.</p>
+      </div>
+
+      <!-- PDF Viewer -->
+      <section class="pdf-section">
+        <div class="pdf-container">
+          <div class="pdf-toolbar">
+            <button id="prev-page">◀ Prev</button>
+            <button id="next-page">Next ▶</button>
+            <span class="page-info" id="page-info">Page 1 / 1</span>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button id="zoom-out">−</button>
+              <button id="zoom-in">+</button>
+              <button id="download-pdf">Download PDF</button>
+            </div>
+          </div>
+          <div class="pdf-canvas-wrapper">
+            <canvas id="pdf-canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog Content -->
+      <section class="blog-section">
+        <h2>Research Abstract</h2>
+        <div class="blog-content">
+          <p>This research paper analyzes the current state of AI adoption in enterprise environments, identifying key success factors, common barriers, and strategic recommendations for organizations looking to scale AI initiatives.</p>
+          
+          <h3>Research Methodology</h3>
+          <p>Our study combined multiple research approaches:</p>
+          <ul>
+            <li>Surveys of 200+ enterprise technology leaders</li>
+            <li>In-depth interviews with AI implementation teams</li>
+            <li>Analysis of public case studies and industry reports</li>
+            <li>Comparative analysis across industry verticals</li>
+          </ul>
+          
+          <h3>Key Findings</h3>
+          <p>The research revealed several critical insights:</p>
+          <ol>
+            <li><strong>Data Quality</strong> remains the #1 blocker for AI initiatives</li>
+            <li><strong>Change Management</strong> is often underestimated in project planning</li>
+            <li><strong>ROI Measurement</strong> frameworks are underdeveloped in most organizations</li>
+            <li><strong>Talent Gap</strong> extends beyond data scientists to include AI-literate business users</li>
+          </ol>
+          
+          <blockquote>
+            "The organizations succeeding with AI are those treating it as a business transformation initiative, not a technology project."
+          </blockquote>
+          
+          <h3>Strategic Recommendations</h3>
+          <ul>
+            <li>Start with high-impact, achievable use cases to build momentum</li>
+            <li>Invest in data infrastructure before scaling AI applications</li>
+            <li>Create cross-functional AI teams that include business stakeholders</li>
+            <li>Establish clear governance frameworks early</li>
+          </ul>
+        </div>
+        
+        <div class="takeaways">
+          <h4>Research Implications</h4>
+          <ul>
+            <li>AI adoption is a multi-year journey requiring sustained investment</li>
+            <li>Success depends more on organizational change than technology choices</li>
+            <li>Early wins are critical for maintaining executive sponsorship</li>
+            <li>Ethical AI considerations must be built in from the start</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-bottom">
+          <div class="footer-quote">"Ship to learn. Strong opinions, weakly held."</div>
+          <div class="footer-copyright">© 2026 Pranav Bhadane. Built with intention.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    themeToggle.addEventListener('click', () => {
+      const theme = html.getAttribute('data-theme');
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // PDF Viewer
+    const pdfUrl = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf';
+    const canvas = document.getElementById('pdf-canvas');
+    const pageInfo = document.getElementById('page-info');
+    let pdfDoc = null, currentPage = 1, scale = 1.2;
+
+    async function loadPDF() {
+      try {
+        pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+        renderPage();
+      } catch(err) {
+        canvas.parentElement.innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px">Failed to load PDF.</p>';
+      }
+    }
+
+    async function renderPage() {
+      if (!pdfDoc) return;
+      const page = await pdfDoc.getPage(currentPage);
+      const viewport = page.getViewport({ scale });
+      const ctx = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      pageInfo.textContent = `Page ${currentPage} / ${pdfDoc.numPages}`;
+    }
+
+    document.getElementById('prev-page').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderPage(); } });
+    document.getElementById('next-page').addEventListener('click', () => { if (pdfDoc && currentPage < pdfDoc.numPages) { currentPage++; renderPage(); } });
+    document.getElementById('zoom-in').addEventListener('click', () => { scale = Math.min(3, scale + 0.2); renderPage(); });
+    document.getElementById('zoom-out').addEventListener('click', () => { scale = Math.max(0.5, scale - 0.2); renderPage(); });
+    document.getElementById('download-pdf').addEventListener('click', () => { window.open(pdfUrl, '_blank'); });
+
+    if (typeof pdfjsLib !== 'undefined') loadPDF();
+    else document.addEventListener('DOMContentLoaded', () => setTimeout(loadPDF, 500));
+  </script>
+</body>
+</html>
