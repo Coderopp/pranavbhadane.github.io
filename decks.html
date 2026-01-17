@@ -75,31 +75,32 @@
       border-color:var(--accent);
     }
     
-    .carousel-card.dark{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)}
-    .carousel-card.purple{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
-    .carousel-card.green{background:linear-gradient(135deg,#56ab2f 0%,#a8e063 100%)}
-    .carousel-card.blue{background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)}
+    .carousel-card.dark{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
+    .carousel-card.purple{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
+    .carousel-card.green{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
+    .carousel-card.blue{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
     
     .carousel-card-title{
       font-size:1.2rem;
       font-weight:700;
-      color:#fff;
+      color:var(--text);
       margin:0;
       line-height:1.3;
     }
     
     .carousel-card-desc{
       font-size:0.9rem;
-      color:rgba(255,255,255,0.8);
+      color:var(--muted);
       margin:12px 0 0 0;
     }
     
     .carousel-card-icon{
       font-size:2rem;
-      opacity:0.3;
+      opacity:0.5;
       position:absolute;
       right:20px;
       bottom:20px;
+      color:var(--accent);
     }
     
     .carousel-controls{
@@ -213,45 +214,45 @@
       <section class="deck-carousel-section reveal">
         <h2 class="carousel-title">Strategic Experience</h2>
         <div class="deck-carousel" id="deckCarousel">
-          <div class="carousel-card dark" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+          <a href="case-studies/risa-ai-browser.html" class="carousel-card dark">
             <div>
-              <h3 class="carousel-card-title">Product Decks</h3>
-              <p class="carousel-card-desc">Strategy & GTM frameworks</p>
+              <h3 class="carousel-card-title">RISA AI Browser</h3>
+              <p class="carousel-card-desc">AI Browser Workflows & Market Analysis</p>
             </div>
             <div class="carousel-card-icon">📊</div>
-          </div>
+          </a>
 
-          <div class="carousel-card purple" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+          <a href="case-studies/produscope-student-finance.html" class="carousel-card purple">
             <div>
-              <h3 class="carousel-card-title">Product Strategy Illustration</h3>
-              <p class="carousel-card-desc">Visual frameworks & concepts</p>
+              <h3 class="carousel-card-title">Produscope 2025</h3>
+              <p class="carousel-card-desc">Student Finance App Strategy</p>
             </div>
             <div class="carousel-card-icon">🎨</div>
-          </div>
+          </a>
 
-          <div class="carousel-card green" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+          <a href="case-studies/mars-colonization-strategy.html" class="carousel-card green">
             <div>
-              <h3 class="carousel-card-title">Product Decks</h3>
-              <p class="carousel-card-desc">Architecture & system design</p>
+              <h3 class="carousel-card-title">Mars Colonization</h3>
+              <p class="carousel-card-desc">Interplanetary Strategy & Execution</p>
             </div>
-            <div class="carousel-card-icon">📱</div>
-          </div>
+            <div class="carousel-card-icon">🚀</div>
+          </a>
 
-          <div class="carousel-card blue" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+          <a href="case-studies/hilabs-network-adequacy.html" class="carousel-card blue">
             <div>
-              <h3 class="carousel-card-title">Constrained Base Case</h3>
-              <p class="carousel-card-desc">Research & analysis</p>
+              <h3 class="carousel-card-title">HiLabs Network Adequacy</h3>
+              <p class="carousel-card-desc">CMS Compliance Automation</p>
             </div>
-            <div class="carousel-card-icon">📄</div>
-          </div>
+            <div class="carousel-card-icon">🏥</div>
+          </a>
 
-          <div class="carousel-card dark" data-pdf="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">
+          <a href="case-studies/instigpt-architecture.html" class="carousel-card dark">
             <div>
-              <h3 class="carousel-card-title">User Research Insights</h3>
-              <p class="carousel-card-desc">Customer discovery & validation</p>
+              <h3 class="carousel-card-title">InstiGPT Architecture</h3>
+              <p class="carousel-card-desc">Campus AI System Design</p>
             </div>
-            <div class="carousel-card-icon">👥</div>
-          </div>
+            <div class="carousel-card-icon">🤖</div>
+          </a>
         </div>
         
         <div class="carousel-controls">
@@ -317,7 +318,7 @@
         <div class="contact-grid">
           <div class="contact-item">
             <div class="contact-label">Email</div>
-            <a href="mailto:pranavbhadane279@gmail.com" class="contact-value">pranavbhadane279@gmail.com</a>
+            <a href="mailto:pranav.bhadane.iitkgp@gmail.com" class="contact-value">pranav.bhadane.iitkgp@gmail.com</a>
           </div>
           <div class="contact-item">
             <div class="contact-label">Mobile</div>
@@ -408,10 +409,8 @@
       startAutoScroll();
     });
 
-    // Click carousel cards to open PDF
-    document.querySelectorAll('.carousel-card').forEach(card => {
-      card.addEventListener('click', () => openModal(card.dataset.pdf));
-    });
+    // Click carousel cards - they are now anchor tags and handle navigation themselves
+    // Removed the click handler since carousel cards are now <a> tags
 
     // Start auto-scroll when page loads
     startAutoScroll();
