@@ -1,0 +1,15 @@
+# Robots.txt for Pranav Bhadane Portfolio
+# https://coderopp.github.io/pranavbhadane.github.io/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://coderopp.github.io/pranavbhadane.github.io/sitemap.xml
+
+# Disallow crawling of PDF files in root
+Disallow: /*.pdf$
+
+# Allow crawling of assets
+Allow: /assets/
+Allow: /images/
