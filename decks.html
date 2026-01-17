@@ -41,7 +41,7 @@
   <style>
     /* Horizontal Scrolling Deck Carousel */
     .deck-carousel-section{margin:60px 0 80px}
-    .carousel-title{font-size:1.5rem;font-weight:700;margin-bottom:24px;color:var(--text)}
+    .carousel-title{font-size:1.5rem;font-weight:700;margin-bottom:24px;color:var(--text);letter-spacing:-0.02em}
     .deck-carousel{
       display:flex;
       gap:20px;
@@ -56,29 +56,33 @@
     .carousel-card{
       min-width:280px;
       height:180px;
-      background:linear-gradient(135deg,#2d3748 0%,#1e2d36 100%);
-      border-radius:12px;
+      background:var(--card-bg);
+      backdrop-filter:blur(var(--glass-blur));
+      -webkit-backdrop-filter:blur(var(--glass-blur));
+      border-radius:var(--card-radius);
       padding:24px;
       display:flex;
       flex-direction:column;
       justify-content:space-between;
       cursor:pointer;
-      transition:all var(--transition);
-      border:1px solid var(--border);
+      transition:all var(--transition-smooth);
+      border:1px solid var(--glass-border);
       position:relative;
       overflow:hidden;
+      text-decoration:none;
     }
     
     .carousel-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 8px 24px rgba(63,169,235,0.2);
+      transform:translateY(-5px) scale(1.02);
+      box-shadow:0 12px 40px rgba(63,169,235,0.2), 0 0 0 1px var(--glow-color);
       border-color:var(--accent);
+      opacity:1;
     }
     
-    .carousel-card.dark{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
-    .carousel-card.purple{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
-    .carousel-card.green{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
-    .carousel-card.blue{background:linear-gradient(135deg,var(--card-bg) 0%,var(--bg) 100%);border:1px solid var(--accent)}
+    .carousel-card.dark,.carousel-card.purple,.carousel-card.green,.carousel-card.blue{
+      background:var(--card-bg);
+      border:1px solid var(--glass-border);
+    }
     
     .carousel-card-title{
       font-size:1.2rem;
@@ -101,6 +105,29 @@
       right:20px;
       bottom:20px;
       color:var(--accent);
+      transition:all var(--transition-smooth);
+    }
+    
+    .carousel-card:hover .carousel-card-icon{
+      opacity:0.8;
+      transform:scale(1.1);
+    }
+    
+    /* Peek arrow for carousel cards */
+    .carousel-card .peek-arrow{
+      position:absolute;
+      top:16px;
+      right:16px;
+      opacity:0;
+      transform:translate(-5px, 5px);
+      transition:all var(--transition-smooth);
+      color:var(--accent);
+      font-size:1rem;
+    }
+    
+    .carousel-card:hover .peek-arrow{
+      opacity:1;
+      transform:translate(0, 0);
     }
     
     .carousel-controls{
@@ -112,15 +139,16 @@
     
     .carousel-btn{
       background:var(--card-bg);
-      border:1px solid var(--border);
-      width:40px;
-      height:40px;
+      backdrop-filter:blur(var(--glass-blur));
+      border:1px solid var(--glass-border);
+      width:44px;
+      height:44px;
       border-radius:50%;
       cursor:pointer;
       display:flex;
       align-items:center;
       justify-content:center;
-      transition:all var(--transition);
+      transition:all var(--transition-smooth);
       color:var(--text);
       font-size:18px;
     }
@@ -129,16 +157,19 @@
       background:var(--accent);
       color:#fff;
       border-color:var(--accent);
+      transform:scale(1.05);
     }
 
     /* Minimal Deck Cards - Julian.com Style */
     .deck-wrap{display:grid;gap:16px}
     .deck-card{
       background:var(--card-bg);
-      border:1px solid var(--border);
-      border-radius:8px;
+      backdrop-filter:blur(var(--glass-blur));
+      -webkit-backdrop-filter:blur(var(--glass-blur));
+      border:1px solid var(--glass-border);
+      border-radius:var(--card-radius);
       padding:32px;
-      transition:all var(--transition);
+      transition:all var(--transition-smooth);
       cursor:pointer;
       display:grid;
       grid-template-columns:1fr auto;
@@ -146,10 +177,13 @@
       align-items:center;
       text-decoration:none;
       color:inherit;
+      position:relative;
     }
     .deck-card:hover{
       border-color:var(--accent);
-      box-shadow:0 4px 16px rgba(63,169,235,0.12);
+      box-shadow:0 12px 40px rgba(63,169,235,0.15);
+      transform:translateY(-4px);
+      opacity:1;
     }
     
     .deck-content h3{
@@ -157,11 +191,12 @@
       font-weight:700;
       color:var(--text);
       margin:0 0 8px 0;
+      letter-spacing:-0.02em;
     }
     .deck-content p{
       color:var(--muted);
       font-size:0.95rem;
-      line-height:1.6;
+      line-height:1.7;
       margin:0;
     }
     
@@ -170,10 +205,10 @@
       font-size:0.9rem;
       font-weight:600;
       white-space:nowrap;
-      transition:transform var(--transition);
+      transition:all var(--transition-smooth);
     }
     .deck-card:hover .deck-action{
-      transform:translateX(4px);
+      transform:translateX(6px);
     }
 
     /* PDF Modal */
@@ -215,6 +250,7 @@
         <h2 class="carousel-title">Strategic Experience</h2>
         <div class="deck-carousel" id="deckCarousel">
           <a href="case-studies/risa-ai-browser.html" class="carousel-card dark">
+            <span class="peek-arrow">↗</span>
             <div>
               <h3 class="carousel-card-title">RISA AI Browser</h3>
               <p class="carousel-card-desc">AI Browser Workflows & Market Analysis</p>
@@ -223,6 +259,7 @@
           </a>
 
           <a href="case-studies/produscope-student-finance.html" class="carousel-card purple">
+            <span class="peek-arrow">↗</span>
             <div>
               <h3 class="carousel-card-title">Produscope 2025</h3>
               <p class="carousel-card-desc">Student Finance App Strategy</p>
@@ -231,6 +268,7 @@
           </a>
 
           <a href="case-studies/mars-colonization-strategy.html" class="carousel-card green">
+            <span class="peek-arrow">↗</span>
             <div>
               <h3 class="carousel-card-title">Mars Colonization</h3>
               <p class="carousel-card-desc">Interplanetary Strategy & Execution</p>
@@ -239,6 +277,7 @@
           </a>
 
           <a href="case-studies/hilabs-network-adequacy.html" class="carousel-card blue">
+            <span class="peek-arrow">↗</span>
             <div>
               <h3 class="carousel-card-title">HiLabs Network Adequacy</h3>
               <p class="carousel-card-desc">CMS Compliance Automation</p>
@@ -247,6 +286,7 @@
           </a>
 
           <a href="case-studies/instigpt-architecture.html" class="carousel-card dark">
+            <span class="peek-arrow">↗</span>
             <div>
               <h3 class="carousel-card-title">InstiGPT Architecture</h3>
               <p class="carousel-card-desc">Campus AI System Design</p>

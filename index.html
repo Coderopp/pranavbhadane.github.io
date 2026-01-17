@@ -70,13 +70,8 @@
     .hero{padding:60px 0;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
     @media(max-width:1024px){.hero{grid-template-columns:1fr;gap:40px}}
     .hero-content{display:flex;flex-direction:column;gap:24px}
-    .avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;border:1px solid var(--border);background:var(--card-bg)}
-    h1{font-size:3rem;line-height:1.2;letter-spacing:-1px;margin-bottom:12px}
+    h1{font-size:3rem;line-height:1.2;letter-spacing:-0.02em;margin-bottom:12px}
     .value-prop{font-size:1rem;color:var(--muted);font-weight:400;line-height:1.7;max-width:500px}
-    
-    .social-links{display:flex;gap:20px;margin-top:24px}
-    .social-links a{width:36px;height:36px;border-radius:50%;background:var(--card-bg-alt);color:var(--text);display:flex;align-items:center;justify-content:center;transition:all var(--transition);border:1px solid var(--border);font-size:14px;font-weight:600}
-    .social-links a:hover{background:var(--accent);color:#fff;opacity:1}
     
     .cta-group{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
 
@@ -86,15 +81,80 @@
     @media(max-width:1024px){.hero .bento-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}}
     @media(max-width:640px){.hero .bento-grid{grid-template-columns:1fr;grid-auto-rows:120px}}
     
-    .bento-card{border:1px solid var(--border);border-radius:6px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;text-decoration:none;color:var(--text);position:relative;overflow:hidden;background:var(--card-bg);transition:all var(--transition);background-size:cover;background-position:center}
-    .bento-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(63,169,235,0.15)}
-    .bento-card::before{content:'';position:absolute;inset:0;background:var(--card-bg);opacity:0.9;z-index:0}
+    /* Base Bento Card - Glassmorphism */
+    .bento-card{
+      border:1px solid var(--glass-border);
+      border-radius:var(--card-radius);
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      cursor:pointer;
+      text-decoration:none;
+      color:var(--text);
+      position:relative;
+      overflow:hidden;
+      background:var(--card-bg);
+      backdrop-filter:blur(var(--glass-blur));
+      -webkit-backdrop-filter:blur(var(--glass-blur));
+      transition:all var(--transition-smooth);
+      background-size:cover;
+      background-position:center;
+    }
+    
+    /* Lift hover effect */
+    .bento-card:hover{
+      border-color:var(--accent);
+      box-shadow:0 12px 40px rgba(63,169,235,0.2), 0 0 0 1px var(--glow-color);
+      transform:translateY(-5px) scale(1.02);
+      opacity:1;
+    }
+    
+    .bento-card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:var(--card-bg);
+      opacity:0.85;
+      z-index:0;
+      transition:opacity var(--transition);
+    }
+    
+    .bento-card:hover::before{
+      opacity:0.9;
+    }
+    
     .bento-card > *{position:relative;z-index:1}
     
-    /* Bento cards with background images - displays in black & white */
+    /* Bento cards with background images - gradient overlay for readability */
     .bento-card.with-bg{background-size:cover;background-position:center;background-repeat:no-repeat}
-    .bento-card.with-bg::before{background:linear-gradient(135deg, rgba(var(--bg-rgb, 255,255,255), 0.85), rgba(var(--bg-rgb, 255,255,255), 0.75));backdrop-filter:grayscale(100%) blur(1px)}
-    [data-theme="dark"] .bento-card.with-bg::before{background:linear-gradient(135deg, rgba(30,36,46, 0.85), rgba(30,36,46, 0.75))}
+    .bento-card.with-bg::before{
+      background:linear-gradient(180deg, rgba(var(--bg-rgb), 0.6) 0%, rgba(var(--bg-rgb), 0.85) 100%);
+      backdrop-filter:grayscale(80%) blur(2px);
+      -webkit-backdrop-filter:grayscale(80%) blur(2px);
+    }
+    [data-theme="dark"] .bento-card.with-bg::before{
+      background:linear-gradient(180deg, rgba(30,36,46, 0.6) 0%, rgba(30,36,46, 0.85) 100%);
+    }
+    
+    /* Peek arrow for clickable cards */
+    .bento-card .peek-arrow{
+      position:absolute;
+      top:16px;
+      right:16px;
+      width:24px;
+      height:24px;
+      opacity:0;
+      transform:translate(-5px, 5px);
+      transition:all var(--transition-smooth);
+      color:var(--accent);
+      font-size:1rem;
+    }
+    
+    .bento-card:hover .peek-arrow{
+      opacity:1;
+      transform:translate(0, 0);
+    }
     
     /* Asymmetric Spans */
     .location-card{grid-column:span 2;grid-row:span 2}
@@ -116,24 +176,95 @@
     .bento-title{font-size:0.95rem;font-weight:600;position:relative;z-index:1}
     .bento-subtitle{font-size:0.8rem;color:var(--muted);margin-top:6px;position:relative;z-index:1}
 
+    /* Pulsing status dot */
+    .status-dot{
+      display:inline-block;
+      width:10px;
+      height:10px;
+      background:#22c55e;
+      border-radius:50%;
+      margin-right:8px;
+      animation:pulse 2s infinite;
+      box-shadow:0 0 8px rgba(34,197,94,0.5);
+    }
+
     /* Currently Building */
-    .section-title{font-size:2rem;font-weight:600;margin:80px 0 40px;letter-spacing:-0.5px}
+    .section-title{font-size:2rem;font-weight:600;margin:80px 0 40px;letter-spacing:-0.02em}
     .building-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:80px}
     @media(max-width:768px){.building-grid{grid-template-columns:1fr}}
-    .building-card{border:1px solid var(--border);border-radius:6px;padding:40px;transition:all var(--transition);background:var(--card-bg)}
-    .building-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(63,169,235,0.15)}
-    .building-badge{display:inline-block;background:var(--badge-bg);color:var(--text);padding:6px 12px;border-radius:3px;font-size:11px;margin-bottom:16px;font-weight:600;border:1px solid var(--border)}
-    .building-title{font-size:1.4rem;font-weight:600;margin:12px 0 12px;letter-spacing:-0.5px}
+    
+    .building-card{
+      border:1px solid var(--glass-border);
+      border-radius:var(--card-radius);
+      padding:40px;
+      transition:all var(--transition-smooth);
+      background:var(--card-bg);
+      backdrop-filter:blur(var(--glass-blur));
+      -webkit-backdrop-filter:blur(var(--glass-blur));
+    }
+    
+    .building-card:hover{
+      border-color:var(--accent);
+      box-shadow:0 12px 40px rgba(63,169,235,0.15);
+      transform:translateY(-4px);
+    }
+    
+    .building-badge{
+      display:inline-flex;
+      align-items:center;
+      background:var(--badge-bg);
+      color:var(--text);
+      padding:6px 12px;
+      border-radius:var(--card-radius-sm);
+      font-size:11px;
+      margin-bottom:16px;
+      font-weight:600;
+      border:1px solid var(--glass-border);
+    }
+    
+    .building-title{font-size:1.4rem;font-weight:600;margin:12px 0 12px;letter-spacing:-0.02em}
     .building-desc{color:var(--muted);line-height:1.8;margin-bottom:20px}
     .building-links{display:flex;gap:12px;flex-wrap:wrap}
-    .building-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--card-bg-alt);color:var(--text);border-radius:3px;font-size:13px;transition:all var(--transition);border:1px solid var(--border)}
-    .building-link:hover{border-color:var(--accent);background:var(--card-bg);opacity:1}
+    
+    .building-link{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:8px 14px;
+      background:var(--card-bg);
+      color:var(--text);
+      border-radius:var(--card-radius-sm);
+      font-size:13px;
+      transition:all var(--transition-smooth);
+      border:1px solid var(--glass-border);
+    }
+    
+    .building-link:hover{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px var(--glow-color);
+      transform:translateX(4px);
+      opacity:1;
+    }
 
-    /* Minimal Icons */
-    .icon-github::before{content:"→"}
-    .icon-linkedin::before{content:"in"}
-    .icon-twitter::before{content:"𝕏"}
-    .icon-email::before{content:"@"}
+    /* Click to copy email */
+    .copy-email{
+      cursor:pointer;
+      position:relative;
+    }
+    
+    .copy-email.copied .bento-title::after{
+      content:'Copied!';
+      display:inline-block;
+      margin-left:8px;
+      color:#22c55e;
+      font-size:0.75rem;
+      animation:fadeIn 0.3s ease;
+    }
+    
+    .copy-email.copied{
+      border-color:#22c55e !important;
+      box-shadow:0 0 0 3px rgba(34,197,94,0.3) !important;
+    }
   </style>
 </head>
 <body>
@@ -175,11 +306,13 @@
 
             <!-- Social Links -->
             <a href="https://www.linkedin.com/in/pranav-bhadane-iitkgp/" target="_blank" class="bento-card social-card linkedin with-bg" style="background-image: url('images/bento-backgrounds/linkedin-bg.jpg')">
+              <span class="peek-arrow">↗</span>
               <div style="font-size:1.8rem;margin-bottom:8px">in</div>
               <div class="bento-title">LinkedIn</div>
             </a>
 
             <a href="https://x.com/Pranav_IITKGP" target="_blank" class="bento-card social-card twitter with-bg" style="background-image: url('images/bento-backgrounds/twitter-bg.jpg')">
+              <span class="peek-arrow">↗</span>
               <div style="font-size:1.8rem;margin-bottom:8px">𝕏</div>
               <div class="bento-title">Twitter</div>
               <div class="bento-subtitle">@Pranav_IITKGP</div>
@@ -193,12 +326,13 @@
             <!-- Calendar/Availability -->
             <a href="#contact" class="bento-card calendar-card with-bg" style="background-image: url('images/bento-backgrounds/calendar-bg.jpg')">
               <div style="font-size:1.4rem;margin-bottom:8px">📅</div>
-              <div class="bento-title">Available</div>
+              <div class="bento-title"><span class="status-dot"></span>Available</div>
               <div class="bento-subtitle">Jan 2026</div>
             </a>
 
             <!-- Company/Work Experience -->
             <a href="career.html" class="bento-card company-card deloitte with-bg" style="background-image: url('images/bento-backgrounds/deloitte-bg.jpg')">
+              <span class="peek-arrow">↗</span>
               <div class="company-logo">💼</div>
               <div class="bento-title">Deloitte USI</div>
               <div class="bento-subtitle">Analyst</div>
@@ -211,6 +345,7 @@
 
             <!-- Featured Project 1 -->
             <a href="decks.html" class="bento-card featured-project shipai with-bg" style="background-image: url('images/bento-backgrounds/shipai-ai.jpg')">
+              <span class="peek-arrow">↗</span>
               <div class="bento-title">ShipAI</div>
               <div class="bento-subtitle">RAG System</div>
             </a>
@@ -228,19 +363,21 @@
             </div>
 
             <!-- Email Contact -->
-            <a href="mailto:pranav.bhadane.iitkgp@gmail.com" class="bento-card contact-card with-bg" style="background-image: url('images/bento-backgrounds/email-bg.jpg')">
+            <div class="bento-card contact-card copy-email with-bg" style="background-image: url('images/bento-backgrounds/email-bg.jpg')" data-email="pranav.bhadane.iitkgp@gmail.com">
               <div style="font-size:1.6rem;margin-bottom:8px">✉️</div>
               <div class="bento-title">Email</div>
-            </a>
+            </div>
 
             <!-- GitHub -->
             <a href="https://github.com/Coderopp" target="_blank" class="bento-card github-card with-bg" style="background-image: url('images/bento-backgrounds/github-bg.jpg')">
+              <span class="peek-arrow">↗</span>
               <div style="font-size:1.6rem;margin-bottom:8px">⚙️</div>
               <div class="bento-title">GitHub</div>
             </a>
 
             <!-- Thinking and Execution -->
             <a href="thinking-and-execution.html" class="bento-card writing-card with-bg" style="background-image: url('images/bento-backgrounds/thinking-bg.jpg')">
+              <span class="peek-arrow">↗</span>
               <div class="bento-title">Thinking and Execution</div>
             </a>
           </div>
@@ -251,7 +388,7 @@
         <h2 class="section-title">Currently Building</h2>
         <div class="building-grid">
           <div class="building-card">
-            <div class="building-badge">Active</div>
+            <div class="building-badge"><span class="status-dot"></span>Active</div>
             <div class="building-title">Deloitte USI — Analyst Role</div>
             <p class="building-desc">Incoming Analyst at Deloitte USI focused on AI product strategy, enterprise transformation, and cross-functional team collaboration. Driving strategic initiatives in technology consulting.</p>
             <div class="building-links">
@@ -260,7 +397,7 @@
           </div>
 
           <div class="building-card">
-            <div class="building-badge">Active</div>
+            <div class="building-badge"><span class="status-dot"></span>Active</div>
             <div class="building-title">ShipAI RAG System</div>
             <p class="building-desc">Production multimodal RAG system processing PDFs, images, and text. Serves 500+ engineering students at IIT Kharagpur with 92% query resolution rate.</p>
             <div class="building-links">
@@ -390,6 +527,23 @@
       html.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // Click to copy email functionality
+    document.querySelectorAll('.copy-email').forEach(el => {
+      el.addEventListener('click', async () => {
+        const email = el.dataset.email;
+        try {
+          await navigator.clipboard.writeText(email);
+          el.classList.add('copied');
+          setTimeout(() => {
+            el.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          // Fallback: open mailto
+          window.location.href = 'mailto:' + email;
+        }
+      });
     });
   </script>
 </body>
