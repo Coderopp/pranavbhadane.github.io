@@ -3,5 +3,5 @@ main = "src/index.js"
 compatibility_date = "2024-03-20"
 
 [vars]
-RESEND_API_KEY = ""
+
 TO_EMAIL = "pranav.bhadane.iitkgp@gmail.com"
