@@ -1,0 +1,7 @@
+name = "blog-analytics-worker"
+main = "src/index.js"
+compatibility_date = "2024-03-20"
+
+[vars]
+RESEND_API_KEY = "re_exaYZiLT_JfF82kBoJEV5fUQk8Q9nDR78"
+TO_EMAIL = "pranav.bhadane.iitkgp@gmail.com"
