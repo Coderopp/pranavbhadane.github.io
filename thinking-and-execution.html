@@ -14,9 +14,7 @@
   </script>
   
   <!-- Cloudflare Analytics Worker -->
-  <script>
-    fetch('https://blog-analytics-worker.pranavbhadane279.workers.dev/track', { method: 'POST', body: JSON.stringify({ path: window.location.pathname }), headers: { 'Content-Type': 'application/json' } }).catch(()=>console.log("Tracking blocked"));
-  </script>
+  <script src="analytics.js"></script>
 
   <title>Thinking & Execution — Pranav Bhadane | Essays on AI & Product Strategy</title>
   <!-- Primary Meta Tags -->

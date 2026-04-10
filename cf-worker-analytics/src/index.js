@@ -13,9 +13,13 @@ export default {
 
     try {
       let path = "Unknown";
+      let sessionId = "Unknown";
+      let isNewSession = false;
       if (request.method === "POST") {
         const body = await request.json();
         path = body.path || "Unknown";
+        sessionId = body.sessionId || "Unknown";
+        isNewSession = body.isNewSession || false;
       }
 
       const country = request.cf?.country || "Unknown";
@@ -30,6 +34,8 @@ export default {
       const emailContent = `New Visitor on your Portfolio!
       
 Time: ${new Date().toISOString()}
+Session ID: ${sessionId}
+New Session: ${isNewSession ? "Yes" : "No"}
 Page Visited: ${path}
 Referrer: ${referer}
 Location: ${city}, ${region}, ${country}
