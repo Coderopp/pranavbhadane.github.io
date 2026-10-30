@@ -140,7 +140,7 @@ export async function countImmediateSince(db, sinceIso) {
 export async function hasRecentNotificationForIp(db, ipHash, sinceIso) {
   if (!ipHash) return false;
   const row = await db
-    .prepare("SELECT 1 AS hit FROM notifications WHERE kind = 'immediate' AND ip_hash = ? AND status != 'skipped' AND created_at >= ? LIMIT 1")
+    .prepare("SELECT 1 AS hit FROM notifications WHERE kind = 'immediate' AND ip_hash = ? AND status NOT IN ('skipped', 'failed') AND created_at >= ? LIMIT 1")
     .bind(ipHash, sinceIso)
     .first();
   return Boolean(row);

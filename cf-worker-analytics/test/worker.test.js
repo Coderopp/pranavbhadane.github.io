@@ -283,6 +283,15 @@ describe('reliability', () => {
     assert.equal(count(env, 'notifications', "status = 'skipped' AND error = 'ip_cooldown'"), 1);
   });
 
+  test('a failed send does not start the per-IP cooldown', async () => {
+    fetchMock.on('https://api.resend.com/emails', async () => Response.json({ message: 'nope' }, { status: 403 }));
+    const env = makeEnv();
+    await call(env, { body: pageView({ session_id: 'session-fail111111111111' }) });
+    fetchMock.on('https://api.resend.com/emails', resendOk('after-fix'));
+    await call(env, { body: pageView({ session_id: 'session-fail222222222222' }) });
+    assert.equal(count(env, 'notifications', "status = 'submitted'"), 1);
+  });
+
   test('hourly email cap prevents notification flooding', async () => {
     const env = makeEnv({ MAX_IMMEDIATE_EMAILS_PER_HOUR: '2', NOTIFY_IP_COOLDOWN_MINUTES: '0' });
     for (let i = 0; i < 4; i++) {

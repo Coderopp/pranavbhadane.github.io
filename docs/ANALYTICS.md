@@ -151,7 +151,7 @@ Set non-secret **vars** in `wrangler.toml`. Set **secrets** with `wrangler secre
 | `RESEND_API_KEY` | secret | – | Resend API key. Without it, events are stored and emails are skipped. |
 | `IP_HASH_SALT` | secret | – (warns) | Salt for pseudonymous IP hashes used in rate limits and cooldowns. Use a long random string. |
 | `RESEND_WEBHOOK_SECRET` | secret, optional | – | `whsec_…` signing secret. Enables `POST /webhooks/resend` for delivery timestamps. |
-| `TO_EMAIL` | var | – | Recipient |
+| `TO_EMAIL` | var | – | Recipient. While sending from `onboarding@resend.dev`, this must be the Resend account owner's address. |
 | `FROM_EMAIL` | var | `Portfolio Analytics <onboarding@resend.dev>` | Sender. `onboarding@resend.dev` can only send to the Resend account owner's address. Use a verified domain otherwise. |
 | `ALLOWED_ORIGINS` | var | `https://coderopp.github.io` | Comma-separated Origin allowlist |
 | `ALLOW_LOCALHOST` | var | `false` | Allow `http://localhost:*` origins (dev only) |
