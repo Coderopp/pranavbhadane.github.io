@@ -16,8 +16,7 @@ crons = ["30 3 * * *"]
 [[d1_databases]]
 binding = "DB"
 database_name = "portfolio-analytics"
-# Replace with the id printed by `wrangler d1 create portfolio-analytics`.
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "317d8510-ff8b-429b-bf53-c3064f648e77"
 migrations_dir = "migrations"
 
 # Non-secret configuration. Secrets (RESEND_API_KEY, IP_HASH_SALT,
