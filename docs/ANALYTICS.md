@@ -157,7 +157,7 @@ Set non-secret **vars** in `wrangler.toml`. Set **secrets** with `wrangler secre
 | `ALLOW_LOCALHOST` | var | `false` | Allow `http://localhost:*` origins (dev only) |
 | `RATE_LIMIT_PER_MINUTE` | var | `30` | Accepted events per IP per minute |
 | `MAX_IMMEDIATE_EMAILS_PER_HOUR` | var | `10` | Global cap on immediate emails |
-| `NOTIFY_IP_COOLDOWN_MINUTES` | var | `30` | At most one session email per IP in this window |
+| `NOTIFY_IP_COOLDOWN_MINUTES` | var | `5` (code default `30`) | At most one session email per IP in this window |
 | `CRAWLER_ALERT_COOLDOWN_MINUTES` | var | `60` | Per bot and page, if a crawler category is set to `immediate` |
 | `NOTIFY_MIN_HUMAN_CONFIDENCE` | var | `Low confidence` | Minimum confidence for an immediate session email |
 | `NOTIFY_POLICY` | var (JSON) | humans `immediate`, all others `digest` | Per-category `immediate`, `digest` or `off` |
