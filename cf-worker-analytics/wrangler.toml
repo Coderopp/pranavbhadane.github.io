@@ -1,7 +1,52 @@
 name = "blog-analytics-worker"
 main = "src/index.js"
-compatibility_date = "2024-03-20"
+compatibility_date = "2025-09-01"
+# Account that owns blog-analytics-worker.pranavbhadane279.workers.dev.
+# Pinning it stops `wrangler deploy` from publishing to a different account.
+account_id = "a0ebaac6603921ccb1f99ca87d3b93f5"
+workers_dev = true
 
+[observability]
+enabled = true
+
+# Daily digest + retention at 03:30 UTC (09:00 IST).
+[triggers]
+crons = ["30 3 * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-analytics"
+# Replace with the id printed by `wrangler d1 create portfolio-analytics`.
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# Non-secret configuration. Secrets (RESEND_API_KEY, IP_HASH_SALT,
+# RESEND_WEBHOOK_SECRET) are set with `wrangler secret put` -- never here.
 [vars]
-
 TO_EMAIL = "pranav.bhadane.iitkgp@gmail.com"
+FROM_EMAIL = "Portfolio Analytics <onboarding@resend.dev>"
+ALLOWED_ORIGINS = "https://coderopp.github.io"
+RATE_LIMIT_PER_MINUTE = "30"
+MAX_IMMEDIATE_EMAILS_PER_HOUR = "10"
+NOTIFY_IP_COOLDOWN_MINUTES = "30"
+CRAWLER_ALERT_COOLDOWN_MINUTES = "60"
+NOTIFY_MIN_HUMAN_CONFIDENCE = "Low confidence"
+IP_RETENTION_DAYS = "30"
+EVENT_RETENTION_DAYS = "180"
+VERIFY_CRAWLERS = "true"
+DIGEST_ENABLED = "true"
+NOTIFY_POLICY = '{"human_browser_candidate":"immediate","social_preview_crawler":"digest","search_engine_crawler":"digest","ai_crawler":"digest","automated_agent":"digest","security_scanner":"digest","unknown":"digest"}'
+
+# Local development (`wrangler dev`) overrides.
+[env.dev]
+name = "blog-analytics-worker-dev"
+workers_dev = true
+[env.dev.vars]
+TO_EMAIL = ""
+ALLOWED_ORIGINS = "https://coderopp.github.io"
+ALLOW_LOCALHOST = "true"
+[[env.dev.d1_databases]]
+binding = "DB"
+database_name = "portfolio-analytics-dev"
+database_id = "local-dev"
+migrations_dir = "migrations"
