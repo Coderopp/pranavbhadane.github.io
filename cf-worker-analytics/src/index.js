@@ -100,7 +100,9 @@ async function handleTrack(request, env, ctx, cfg) {
   const db = env.DB;
 
   const reject = (status, reason, extra = {}) => {
-    if (db) ctx.waitUntil(logRejected({ db, cfg, request, server, ipHash, userAgent, receivedAt, reason, now: started }));
+    // Store validation details with the reason so rejections are diagnosable.
+    const logged = extra.details ? `${reason}: ${extra.details.slice(0, 5).join('; ')}`.slice(0, 300) : reason;
+    if (db) ctx.waitUntil(logRejected({ db, cfg, request, server, ipHash, userAgent, receivedAt, reason: logged, now: started }));
     return json(status, { error: reason, ...extra }, isAllowedOrigin(origin, cfg) ? corsHeaders(origin) : {});
   };
 
@@ -123,7 +125,11 @@ async function handleTrack(request, env, ctx, cfg) {
     return reject(400, 'malformed_json');
   }
   const validation = validateEvent(payload, { now: started });
-  if (!validation.ok) return reject(400, 'invalid_payload', { details: validation.errors });
+  if (!validation.ok) {
+    // v1 analytics.js (cached in browsers after an upgrade) sends {path, sessionId, isNewSession}.
+    if (payload && typeof payload === 'object' && 'sessionId' in payload && 'path' in payload) return reject(400, 'legacy_v1_payload');
+    return reject(400, 'invalid_payload', { details: validation.errors });
+  }
   const event = validation.event;
   if (event.page_origin !== origin) return reject(400, 'page_url_origin_mismatch');
 

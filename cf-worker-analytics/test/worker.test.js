@@ -64,12 +64,15 @@ describe('HTTP and validation', () => {
     assert.equal(count(env, 'events'), 0);
     assert.equal(fetchMock.resendCalls().length, 0);
     assert.equal(count(env, 'crawler_log', "kind = 'rejected'"), 1);
+    assert.match(env.DB.raw.prepare("SELECT reason FROM crawler_log").get().reason, /^invalid_payload: .*invalid event_type/);
   });
 
   test('legacy v1 payload ({path, sessionId}) is rejected', async () => {
     const env = makeEnv();
-    const { res } = await call(env, { body: { path: '/', sessionId: 'abc', isNewSession: true } });
+    const { res, body } = await call(env, { body: { path: '/', sessionId: 'abc', isNewSession: true } });
     assert.equal(res.status, 400);
+    assert.equal(body.error, 'legacy_v1_payload');
+    assert.equal(count(env, 'crawler_log', "reason = 'legacy_v1_payload'"), 1);
     assert.equal(fetchMock.resendCalls().length, 0);
   });
 
