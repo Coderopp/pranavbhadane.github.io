@@ -16,7 +16,7 @@
   <!-- Cloudflare Analytics Worker -->
   <script src="analytics.js" defer></script>
 
-  <title>Strategy Decks & Case Studies — Pranav Bhadane | Product Frameworks</title>
+  <title>Work — Pranav Bhadane | Product Frameworks</title>
   <!-- Primary Meta Tags -->
   <meta name="title" content="Strategy Decks & Case Studies — Pranav Bhadane | Product Frameworks" />
   <meta name="description" content="Explore 10+ product strategy case studies: RISA AI Browser, Mars Colonization, InstiGPT Architecture, Enterprise AI Adoption, and GTM frameworks. Real-world product analysis and strategic thinking." />
@@ -42,7 +42,7 @@
   <meta name="twitter:creator" content="@pranavbhadane" />
   
   <!-- Additional SEO -->
-  <meta name="theme-color" content="#3fa9eb" />
+  <meta name="theme-color" content="#0b0d10" />
   
   
   
@@ -50,375 +50,140 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
   <style>
-    /* Horizontal Scrolling Deck Carousel */
-    .deck-carousel-section{margin:60px 0 80px}
-    .carousel-title{font-size:1.5rem;font-weight:700;margin-bottom:24px;color:var(--text);letter-spacing:-0.02em}
-    .deck-carousel{
-      display:flex;
-      gap:20px;
-      overflow-x:auto;
-      scroll-behavior:smooth;
-      padding:20px 0;
-      scrollbar-width:none;
-      -ms-overflow-style:none;
-    }
-    .deck-carousel::-webkit-scrollbar{display:none}
-    
-    .carousel-card{
-      min-width:280px;
-      height:180px;
-      background:var(--card-bg);
-      backdrop-filter:blur(var(--glass-blur));
-      -webkit-backdrop-filter:blur(var(--glass-blur));
-      border-radius:var(--card-radius);
-      padding:24px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      cursor:pointer;
-      transition:all var(--transition-smooth);
-      border:1px solid var(--glass-border);
-      position:relative;
-      overflow:hidden;
-      text-decoration:none;
-    }
-    
-    .carousel-card:hover{
-      transform:translateY(-5px) scale(1.02);
-      box-shadow:0 12px 40px rgba(63,169,235,0.2), 0 0 0 1px var(--glow-color);
-      border-color:var(--accent);
-      opacity:1;
-    }
-    
-    .carousel-card.dark,.carousel-card.purple,.carousel-card.green,.carousel-card.blue{
-      background:var(--card-bg);
-      border:1px solid var(--glass-border);
-    }
-    
-    .carousel-card-title{
-      font-size:1.2rem;
-      font-weight:700;
-      color:var(--text);
-      margin:0;
-      line-height:1.3;
-    }
-    
-    .carousel-card-desc{
-      font-size:0.9rem;
-      color:var(--muted);
-      margin:12px 0 0 0;
-    }
-    
-    .carousel-card-icon{
-      font-size:2rem;
-      opacity:0.5;
-      position:absolute;
-      right:20px;
-      bottom:20px;
-      color:var(--accent);
-      transition:all var(--transition-smooth);
-    }
-    
-    .carousel-card:hover .carousel-card-icon{
-      opacity:0.8;
-      transform:scale(1.1);
-    }
-    
-    /* Peek arrow for carousel cards */
-    .carousel-card .peek-arrow{
-      position:absolute;
-      top:16px;
-      right:16px;
-      opacity:0;
-      transform:translate(-5px, 5px);
-      transition:all var(--transition-smooth);
-      color:var(--accent);
-      font-size:1rem;
-    }
-    
-    .carousel-card:hover .peek-arrow{
-      opacity:1;
-      transform:translate(0, 0);
-    }
-    
-    .carousel-controls{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      margin-top:20px;
-    }
-    
-    .carousel-btn{
-      background:var(--card-bg);
-      backdrop-filter:blur(var(--glass-blur));
-      border:1px solid var(--glass-border);
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:all var(--transition-smooth);
-      color:var(--text);
-      font-size:18px;
-    }
-    
-    .carousel-btn:hover{
-      background:var(--accent);
-      color:#fff;
-      border-color:var(--accent);
-      transform:scale(1.05);
-    }
-
-    /* Minimal Deck Cards - Julian.com Style */
-    .deck-wrap{display:grid;gap:16px}
-    .deck-card{
-      background:var(--card-bg);
-      backdrop-filter:blur(var(--glass-blur));
-      -webkit-backdrop-filter:blur(var(--glass-blur));
-      border:1px solid var(--glass-border);
-      border-radius:var(--card-radius);
-      padding:32px;
-      transition:all var(--transition-smooth);
-      cursor:pointer;
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:24px;
-      align-items:center;
-      text-decoration:none;
-      color:inherit;
-      position:relative;
-    }
-    .deck-card:hover{
-      border-color:var(--accent);
-      box-shadow:0 12px 40px rgba(63,169,235,0.15);
-      transform:translateY(-4px);
-      opacity:1;
-    }
-    
-    .deck-content h3{
-      font-size:1.4rem;
-      font-weight:700;
-      color:var(--text);
-      margin:0 0 8px 0;
-      letter-spacing:-0.02em;
-    }
-    .deck-content p{
-      color:var(--muted);
-      font-size:0.95rem;
-      line-height:1.7;
-      margin:0;
-    }
-    
-    .deck-action{
-      color:var(--accent);
-      font-size:0.9rem;
-      font-weight:600;
-      white-space:nowrap;
-      transition:all var(--transition-smooth);
-    }
-    .deck-card:hover .deck-action{
-      transform:translateX(6px);
-    }
-
-    /* PDF Modal */
-    #pdf-modal{display:none}
-    #pdf-modal[aria-hidden="false"]{display:block}
-    #pdf-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
-    #pdf-backdrop > div{background:var(--bg);width:90vw;height:90vh;border-radius:8px;position:relative;display:flex;flex-direction:column;overflow:hidden}
-    #pdf-close{position:absolute;right:12px;top:12px;background:transparent;border:none;font-size:20px;cursor:pointer;padding:4px;z-index:2;color:var(--text)}
-    .pdf-toolbar{padding:12px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);background:var(--card-bg)}
-    .pdf-toolbar button{padding:8px 12px;border:1px solid var(--border);background:var(--bg);border-radius:4px;cursor:pointer;transition:all var(--transition);color:var(--text)}
-    .pdf-toolbar button:hover{background:var(--card-bg-alt)}
-    .pdf-canvas-area{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:12px;background:var(--card-bg-alt)}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+    .filter{font-family:var(--font-mono);font-size:12.5px;padding:6px 14px;border-radius:999px;border:1px solid var(--border-solid);background:transparent;color:var(--muted);transition:all var(--transition)}
+    .filter:hover{color:var(--text);border-color:var(--muted)}
+    .filter[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+    .work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+    @media(max-width:400px){.work-grid{grid-template-columns:1fr}}
+    .work-card{display:flex;flex-direction:column;gap:12px;padding:24px;min-height:230px}
+    .work-card[hidden]{display:none}
+    .work-card .meta{display:flex;flex-wrap:wrap;gap:6px}
+    .work-card h3{font-size:1.2rem;line-height:1.3}
+    .work-card p{color:var(--muted);font-size:.94rem;line-height:1.6}
+    .work-card .go{margin-top:auto;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:12.5px;color:var(--accent)}
+    .work-card .go small{color:var(--faint);font-size:12px}
+    .work-card:hover .go span{text-decoration:underline;text-underline-offset:3px}
   </style>
+  <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'dark')}catch(e){}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <div class="container">
-    <header>
-      <nav aria-label="Primary Navigation">
-        <div style="font-weight:700">PB</div>
-        <div style="display:flex;gap:18px;align-items:center">
-          <a href="index.html">Home</a>
-          <a href="career.html">Career</a>
-          <a href="decks.html">Decks</a>
-          <a href="thinking-and-execution.html">Thinking and Execution</a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <span id="themeIcon">🌙</span>
+    <header class="site-header">
+      <nav aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="Pranav Bhadane, home">~/pranav<span class="caret" aria-hidden="true">_</span></a>
+        <div class="nav-links">
+          <a href="decks.html" aria-current="page">Work</a>
+          <a href="career.html">Experience</a>
+          <a href="thinking-and-execution.html">Writing</a>
+          <a class="nav-resume" href="assets/pdfs/Resume-Pranav.pdf" target="_blank" rel="noopener">resume.pdf ↗</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            <span id="themeIcon">☀️</span>
           </button>
         </div>
       </nav>
     </header>
 
     <main id="main">
-      <h1 class="page-title reveal">Strategic Decks</h1>
-      <p class="page-subtitle reveal">Product strategy frameworks, competitive analysis, and design documentation.</p>
-      
-      <!-- Horizontal Scrolling Carousel -->
-      <section class="deck-carousel-section reveal">
-        <h2 class="carousel-title">Strategic Experience</h2>
-        <div class="deck-carousel" id="deckCarousel">
-          <a href="case-studies/risa-ai-browser.html" class="carousel-card dark">
-            <span class="peek-arrow">↗</span>
-            <div>
-              <h3 class="carousel-card-title">RISA AI Browser</h3>
-              <p class="carousel-card-desc">AI Browser Workflows & Market Analysis</p>
-            </div>
-            <div class="carousel-card-icon">📊</div>
+      <p class="eyebrow reveal" style="margin-top:72px">$ ls ./work</p>
+      <h1 class="page-title reveal" style="margin-top:12px">Work</h1>
+      <p class="page-subtitle reveal">Case studies in product management, strategy and go-to-market. Most include the original deck.</p>
+
+      <div class="filters reveal" role="group" aria-label="Filter case studies">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">all</button>
+        <button class="filter" type="button" data-filter="product" aria-pressed="false">product</button>
+        <button class="filter" type="button" data-filter="strategy" aria-pressed="false">strategy</button>
+        <button class="filter" type="button" data-filter="ai" aria-pressed="false">ai</button>
+      </div>
+
+      <div class="work-grid reveal">
+          <a class="card work-card" href="case-studies/flipkart-2025-strategy.html" data-cats="product strategy">
+            <div class="meta"><span class="tag accent">APM case study</span></div>
+            <h3>Flipkart 2025 Strategy</h3>
+            <p>Product solution to Flipkart's growth challenges and e-commerce innovation opportunities for 2025.</p>
+            <div class="go"><span>read case study →</span><small>+ deck</small></div>
           </a>
-
-          <a href="case-studies/produscope-student-finance.html" class="carousel-card purple">
-            <span class="peek-arrow">↗</span>
-            <div>
-              <h3 class="carousel-card-title">Produscope 2025</h3>
-              <p class="carousel-card-desc">Student Finance App Strategy</p>
-            </div>
-            <div class="carousel-card-icon">🎨</div>
+          <a class="card work-card" href="case-studies/hilabs-network-adequacy.html" data-cats="product">
+            <div class="meta"><span class="tag accent">APM case study</span><span class="tag">healthtech</span></div>
+            <h3>HiLabs — CMS Network Adequacy Tool</h3>
+            <p>Compliance automation that replicates CMS network-adequacy checks across Medicare, Medicaid and Commercial lines.</p>
+            <div class="go"><span>read case study →</span><small>+ deck</small></div>
           </a>
-
-          <a href="case-studies/mars-colonization-strategy.html" class="carousel-card green">
-            <span class="peek-arrow">↗</span>
-            <div>
-              <h3 class="carousel-card-title">Mars Colonization</h3>
-              <p class="carousel-card-desc">Interplanetary Strategy & Execution</p>
-            </div>
-            <div class="carousel-card-icon">🚀</div>
+          <a class="card work-card" href="case-studies/risa-ai-browser.html" data-cats="strategy ai">
+            <div class="meta"><span class="tag accent">Market analysis</span><span class="tag">AI</span></div>
+            <h3>RISA — AI Browser Workflows</h3>
+            <p>Market opportunity, competitive landscape and an enterprise capture strategy for AI browsers.</p>
+            <div class="go"><span>read case study →</span><small>+ deck</small></div>
           </a>
-
-          <a href="case-studies/hilabs-network-adequacy.html" class="carousel-card blue">
-            <span class="peek-arrow">↗</span>
-            <div>
-              <h3 class="carousel-card-title">HiLabs Network Adequacy</h3>
-              <p class="carousel-card-desc">CMS Compliance Automation</p>
-            </div>
-            <div class="carousel-card-icon">🏥</div>
+          <a class="card work-card" href="case-studies/produscope-student-finance.html" data-cats="product">
+            <div class="meta"><span class="tag accent">Product case study</span><span class="tag">fintech</span></div>
+            <h3>Produscope — Student Finance App</h3>
+            <p>Gamified budgeting, round-up savings and financial literacy for college students.</p>
+            <div class="go"><span>read case study →</span><small>+ deck</small></div>
           </a>
-
-          <a href="case-studies/instigpt-architecture.html" class="carousel-card dark">
-            <span class="peek-arrow">↗</span>
-            <div>
-              <h3 class="carousel-card-title">InstiGPT Architecture</h3>
-              <p class="carousel-card-desc">Campus AI System Design</p>
-            </div>
-            <div class="carousel-card-icon">🤖</div>
+          <a class="card work-card" href="case-studies/mars-colonization-strategy.html" data-cats="strategy">
+            <div class="meta"><span class="tag accent">Strategy case study</span></div>
+            <h3>Mars Colonization Strategy</h3>
+            <p>An economically viable, sustainable and scalable framework for a Mars civilization.</p>
+            <div class="go"><span>read case study →</span><small>+ deck</small></div>
           </a>
-        </div>
-        
-        <div class="carousel-controls">
-          <button class="carousel-btn" id="prevBtn" aria-label="Previous">‹</button>
-          <button class="carousel-btn" id="nextBtn" aria-label="Next">›</button>
-        </div>
-      </section>
-
-      <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:24px;color:var(--text)">All Decks</h2>
-      <div class="deck-wrap reveal" aria-label="Strategy decks">
-        <a href="blog/the-cultural-phenomenon.html" class="deck-card" aria-labelledby="deck_cultural-title">
-          <div class="deck-content">
-            <h3 id="deck_cultural-title">The Anatomy of a Cultural Phenomenon</h3>
-            <p>How Dhurandhar became a ₹1,350 crore film by borrowing everything and inventing nothing.</p>
-          </div>
-          <div class="deck-action">View Case Study →</div>
-        </a>
-
-        <a href="case-studies/risa-ai-browser.html" class="deck-card" aria-labelledby="deck0-title">
-          <div class="deck-content">
-            <h3 id="deck0-title">RISA — AI Browser Workflows</h3>
-            <p>Market analysis for AI-powered browser automation: $2.1B to $15B opportunity at 27.7% CAGR.</p>
-          </div>
-          <div class="deck-action">View Case Study →</div>
-        </a>
-
-        <a href="case-studies/produscope-student-finance.html" class="deck-card" aria-labelledby="deck0b-title">
-          <div class="deck-content">
-            <h3 id="deck0b-title">Produscope 2025 — Student Finance App</h3>
-            <p>Building a smarter financial tool for college students with gamified budgeting and savings.</p>
-          </div>
-          <div class="deck-action">View Case Study →</div>
-        </a>
-
-        <a href="case-studies/mars-colonization-strategy.html" class="deck-card" aria-labelledby="deck1-title">
-          <div class="deck-content">
-            <h3 id="deck1-title">Mars Colonization Strategy</h3>
-            <p>Designing an economically viable, environmentally sustainable, and scalable Mars civilization framework.</p>
-          </div>
-          <div class="deck-action">View Case Study →</div>
-        </a>
-
-        <a href="case-studies/wellbeingmate-mental-health.html" class="deck-card" aria-labelledby="deck2-title">
-          <div class="deck-content">
-            <h3 id="deck2-title">WellBeingMate — Corporate Mental Health</h3>
-            <p>Comprehensive mental health platform for corporate employees addressing workplace stress and well-being.</p>
-          </div>
-          <div class="deck-action">View Case Study →</div>
-        </a>
-
-        <a href="case-studies/hilabs-network-adequacy.html" class="deck-card" aria-labelledby="deck3-title">
-          <div class="deck-content">
-            <h3 id="deck3-title">HiLabs — CMS Network Adequacy Tool</h3>
-            <p>Compliance automation tool for network adequacy checks in Medicare, Medicaid, and Commercial insurance.</p>
-          </div>
-          <div class="deck-action">View Case Study →</div>
-        </a>
-
-        <a href="case-studies/instigpt-architecture.html" class="deck-card" aria-labelledby="deck4-title">
-          <div class="deck-content">
-            <h3 id="deck4-title">InstiGPT — AI System Architecture</h3>
-            <p>Technical architecture and design documentation for campus-wide RAG-based chatbot system.</p>
-          </div>
-          <div class="deck-action">View Case Study →</div>
-        </a>
+          <a class="card work-card" href="case-studies/wellbeingmate-mental-health.html" data-cats="product ai">
+            <div class="meta"><span class="tag accent">Product case study</span><span class="tag">AI</span></div>
+            <h3>WellBeingMate — Corporate Mental Health</h3>
+            <p>A mental health and well-being platform built for corporate employees.</p>
+            <div class="go"><span>read case study →</span><small>write-up</small></div>
+          </a>
+          <a class="card work-card" href="case-studies/restoration-platform-gtm.html" data-cats="strategy product">
+            <div class="meta"><span class="tag accent">GTM strategy</span></div>
+            <h3>Restoration Platform — Product &amp; GTM</h3>
+            <p>Competitive analysis, user research and go-to-market planning for a restoration platform.</p>
+            <div class="go"><span>read case study →</span><small>write-up</small></div>
+          </a>
+          <a class="card work-card" href="case-studies/instigpt-architecture.html" data-cats="ai">
+            <div class="meta"><span class="tag accent">Technical</span><span class="tag">AI</span></div>
+            <h3>InstiGPT — AI System Architecture</h3>
+            <p>Architecture of a campus-wide RAG assistant serving 500+ users at IIT Kharagpur.</p>
+            <div class="go"><span>read case study →</span><small>write-up</small></div>
+          </a>
+          <a class="card work-card" href="case-studies/enterprise-ai-adoption.html" data-cats="strategy ai">
+            <div class="meta"><span class="tag accent">Research</span><span class="tag">AI</span></div>
+            <h3>Enterprise AI Adoption</h3>
+            <p>Enterprise AI adoption trends, challenges and strategic recommendations.</p>
+            <div class="go"><span>read case study →</span><small>write-up</small></div>
+          </a>
+          <a class="card work-card" href="case-studies/product-strategy-frameworks.html" data-cats="product strategy">
+            <div class="meta"><span class="tag accent">Frameworks</span></div>
+            <h3>Product Strategy Frameworks</h3>
+            <p>Frameworks for product positioning, market analysis and roadmap development.</p>
+            <div class="go"><span>read case study →</span><small>write-up</small></div>
+          </a>
       </div>
     </main>
 
-    <footer>
-      <div class="footer-content">
-        <div class="contact-grid">
-          <div class="contact-item">
-            <div class="contact-label">Email</div>
-            <a href="mailto:pranav.bhadane.iitkgp@gmail.com" class="contact-value">pranav.bhadane.iitkgp@gmail.com</a>
-          </div>
-          <div class="contact-item">
-            <div class="contact-label">Mobile</div>
-            <a href="tel:+917666381808" class="contact-value">+91 76663 81808</a>
-          </div>
-          <div class="contact-item">
-            <div class="contact-label">Location</div>
-            <div style="color:var(--muted)">Kharagpur, India</div>
-          </div>
+    <footer class="site-footer">
+      <div class="footer-cta">
+        <div>
+          <p class="eyebrow"><span class="status-dot"></span>&nbsp; open to PM, APM &amp; strategy roles</p>
+          <h2>Let's talk.</h2>
         </div>
-        <div class="footer-bottom">
-          <div class="footer-quote">"Ship to learn. Strong opinions, weakly held."</div>
-          <div class="footer-copyright">© 2026 Pranav Bhadane. Built with intention.</div>
-        </div>
+        <a class="btn btn-primary" href="mailto:pranav.bhadane.iitkgp@gmail.com">pranav.bhadane.iitkgp@gmail.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="assets/pdfs/Resume-Pranav.pdf" target="_blank" rel="noopener">resume.pdf</a>
+        <a href="https://www.linkedin.com/in/pranav-bhadane-iitkgp/" target="_blank" rel="noopener">linkedin</a>
+        <a href="https://github.com/Coderopp" target="_blank" rel="noopener">github</a>
+        <a href="https://x.com/Pranav_IITKGP" target="_blank" rel="noopener">x.com</a>
+        <a href="tel:+917666381808">+91 76663 81808</a>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Pranav Bhadane · Kharagpur, India</span>
+        <span>ship to learn. strong opinions, weakly held.</span>
       </div>
     </footer>
-  </div>
-
-  <!-- PDF Viewer Modal -->
-  <div id="pdf-modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div id="pdf-backdrop">
-      <div role="document">
-        <button id="pdf-close" aria-label="Close PDF viewer">✕</button>
-        <div class="pdf-toolbar">
-          <button id="prev-page" aria-label="Previous page">◀</button>
-          <button id="next-page" aria-label="Next page">▶</button>
-          <div style="margin-left:8px;font-family:JetBrains Mono;font-size:14px" id="page-num">1 / 1</div>
-          <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-            <button id="zoom-out" aria-label="Zoom out">−</button>
-            <button id="zoom-in" aria-label="Zoom in">+</button>
-          </div>
-        </div>
-        <div class="pdf-canvas-area">
-          <canvas id="pdf-canvas" style="max-width:100%;height:auto;box-shadow:0 8px 24px rgba(2,6,23,.2)"></canvas>
-        </div>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -428,61 +193,21 @@
     },{threshold:0.12});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Carousel Auto-scroll
-    const carousel = document.getElementById('deckCarousel');
-    const prevButton = document.querySelector('#prevBtn');
-    const nextButton = document.querySelector('#nextBtn');
-    let autoScrollInterval;
-
-    function scrollCarousel(direction) {
-      const scrollAmount = 320; // card width + gap
-      const currentScroll = carousel.scrollLeft;
-      carousel.scrollTo({
-        left: direction === 'next' ? currentScroll + scrollAmount : currentScroll - scrollAmount,
-        behavior: 'smooth'
+    // Category filters
+    const filters = document.querySelectorAll('.filter');
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      filters.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      document.querySelectorAll('.work-card').forEach(card => {
+        card.hidden = f !== 'all' && !card.dataset.cats.split(' ').includes(f);
       });
-    }
+    }));
 
-    // Auto-scroll every 3 seconds
-    function startAutoScroll() {
-      autoScrollInterval = setInterval(() => {
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-        if (carousel.scrollLeft >= maxScroll) {
-          carousel.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          scrollCarousel('next');
-        }
-      }, 3000);
-    }
-
-    // Stop auto-scroll on hover
-    carousel.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
-    carousel.addEventListener('mouseleave', startAutoScroll);
-
-    // Manual controls
-    prevButton.addEventListener('click', () => {
-      clearInterval(autoScrollInterval);
-      scrollCarousel('prev');
-      startAutoScroll();
-    });
-
-    nextButton.addEventListener('click', () => {
-      clearInterval(autoScrollInterval);
-      scrollCarousel('next');
-      startAutoScroll();
-    });
-
-    // Click carousel cards - they are now anchor tags and handle navigation themselves
-    // Removed the click handler since carousel cards are now <a> tags
-
-    // Start auto-scroll when page loads
-    startAutoScroll();
-
-    // Dark Mode Toggle
+    // Theme Toggle
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const html = document.documentElement;
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', currentTheme);
     themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
     themeToggle.addEventListener('click', () => {
@@ -492,78 +217,6 @@
       localStorage.setItem('theme', newTheme);
       themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     });
-
-    // PDF Modal functionality
-    const modal = document.getElementById('pdf-modal');
-    const backdrop = document.getElementById('pdf-backdrop');
-    const canvas = document.getElementById('pdf-canvas');
-    const pageNumEl = document.getElementById('page-num');
-    const closeBtn = document.getElementById('pdf-close');
-    const prevBtn = document.getElementById('prev-page');
-    const nextBtn = document.getElementById('next-page');
-    const zoomIn = document.getElementById('zoom-in');
-    const zoomOut = document.getElementById('zoom-out');
-
-    let pdfDoc = null, currentPage = 1, scale = 1.2;
-    const MIN_SCALE = 0.6, MAX_SCALE = 3;
-
-    function openModal(pdfUrl){
-      modal.style.display = 'block';
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      loadPDF(pdfUrl);
-    }
-
-    function closeModal(){
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      if(pdfDoc) pdfDoc = null;
-    }
-
-    async function loadPDF(url){
-      try{
-        const loadingTask = pdfjsLib.getDocument(url);
-        pdfDoc = await loadingTask.promise;
-        currentPage = 1;
-        scale = 1.2;
-        renderPage();
-      }catch(err){
-        console.error('PDF load error', err);
-        alert('Failed to load PDF');
-        closeModal();
-      }
-    }
-
-    async function renderPage(){
-      if(!pdfDoc) return;
-      const page = await pdfDoc.getPage(currentPage);
-      const viewport = page.getViewport({scale});
-      const ctx = canvas.getContext('2d');
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-      const renderCtx = {canvasContext: ctx, viewport};
-      await page.render(renderCtx).promise;
-      pageNumEl.textContent = `${currentPage} / ${pdfDoc.numPages}`;
-    }
-
-    prevBtn.addEventListener('click', ()=>{ if(currentPage > 1){ currentPage--; renderPage(); } });
-    nextBtn.addEventListener('click', ()=>{ if(pdfDoc && currentPage < pdfDoc.numPages){ currentPage++; renderPage(); } });
-    zoomIn.addEventListener('click', ()=>{ scale = Math.min(MAX_SCALE, scale + 0.25); renderPage(); });
-    zoomOut.addEventListener('click', ()=>{ scale = Math.max(MIN_SCALE, scale - 0.25); renderPage(); });
-    closeBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) closeModal(); });
-
-    document.addEventListener('keydown', (e)=>{
-      if(modal.style.display === 'block'){
-        if(e.key === 'Escape') closeModal();
-        if(e.key === 'ArrowRight') nextBtn.click();
-        if(e.key === 'ArrowLeft') prevBtn.click();
-      }
-    });
-
-    // Note: .deck-card elements are anchor tags that navigate to case studies
-    // Do not add click handlers that would intercept the navigation
   </script>
 </body>
 </html>

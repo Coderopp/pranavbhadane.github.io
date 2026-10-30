@@ -29,10 +29,10 @@
   <meta name="twitter:creator" content="@pranavbhadane" />
   
   <!-- Additional SEO -->
-  <meta name="theme-color" content="#3fa9eb" />
+  <meta name="theme-color" content="#0b0d10" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <style>
     .back-link{color:var(--accent);text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;margin-top:40px}
@@ -44,13 +44,6 @@
     .case-meta{color:var(--muted);font-size:0.95rem;margin-bottom:24px}
     
     .pdf-section{margin:40px auto; max-width:800px;}
-    .pdf-container{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-    .pdf-toolbar{padding:12px 16px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);background:var(--card-bg);flex-wrap:wrap}
-    .pdf-toolbar button{padding:8px 14px;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;transition:all var(--transition);color:var(--text);font-size:14px}
-    .pdf-toolbar button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-    .pdf-toolbar .page-info{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted)}
-    .pdf-canvas-wrapper{display:flex;align-items:center;justify-content:center;padding:24px;min-height:500px;background:var(--card-bg-alt, #f5f5f5);overflow:auto}
-    #pdf-canvas{max-width:100%;height:auto;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
     
     .blog-section{margin:60px auto; max-width:800px;}
     .blog-section h2{font-size:1.6rem;font-weight:700;margin-bottom:24px}
@@ -75,29 +68,35 @@
     .persona-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
     .persona-name{font-weight:700;font-size:1.1rem;margin-bottom:8px}
     .persona-desc{color:var(--muted);font-size:0.9rem}
+    .deck-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .deck-title{font-size:1.3rem}
+    .deck-frame{display:block;width:100%;height:80vh;max-height:760px;border:1px solid var(--border);border-radius:var(--card-radius);background:var(--card-bg-alt)}
+    @media(max-width:720px){.deck-frame{display:none}}
   </style>
   <!-- Cloudflare Analytics Worker -->
   <script src="../analytics.js" defer></script>
+  <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'dark')}catch(e){}</script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <div class="container">
-    <header>
-      <nav aria-label="Primary Navigation">
-        <div style="font-weight:700"><a href="../index.html" style="color:var(--text)">PB</a></div>
-        <div style="display:flex;gap:18px;align-items:center">
-          <a href="../index.html">Home</a>
-          <a href="../career.html">Career</a>
-          <a href="../decks.html">Decks</a>
-          <a href="../thinking-and-execution.html">Thinking and Execution</a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <span id="themeIcon">🌙</span>
+    <header class="site-header">
+      <nav aria-label="Primary">
+        <a class="brand" href="../index.html" aria-label="Pranav Bhadane, home">~/pranav<span class="caret" aria-hidden="true">_</span></a>
+        <div class="nav-links">
+          <a href="../decks.html" aria-current="page">Work</a>
+          <a href="../career.html">Experience</a>
+          <a href="../thinking-and-execution.html">Writing</a>
+          <a class="nav-resume" href="../assets/pdfs/Resume-Pranav.pdf" target="_blank" rel="noopener">resume.pdf ↗</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+            <span id="themeIcon">☀️</span>
           </button>
         </div>
       </nav>
     </header>
 
-    <main>
-      <a href="../decks.html" class="back-link">← Back to all decks</a>
+    <main id="main">
+      <a href="../decks.html" class="back-link">← All work</a>
       
       <div class="case-header">
         <span class="case-badge">Produscope 2025 Case Study</span>
@@ -128,25 +127,6 @@
           <div class="stat-label">No Financial Knowledge</div>
         </div>
       </div>
-
-      <!-- PDF Viewer -->
-      <section class="pdf-section">
-        <div class="pdf-container">
-          <div class="pdf-toolbar">
-            <button id="prev-page">◀ Prev</button>
-            <button id="next-page">Next ▶</button>
-            <span class="page-info" id="page-info">Page 1 / 1</span>
-            <div style="margin-left:auto;display:flex;gap:8px">
-              <button id="zoom-out">−</button>
-              <button id="zoom-in">+</button>
-              <button id="download-pdf">Download PDF</button>
-            </div>
-          </div>
-          <div class="pdf-canvas-wrapper">
-            <canvas id="pdf-canvas"></canvas>
-          </div>
-        </div>
-      </section>
 
       <!-- Blog Content -->
       <section class="blog-section">
@@ -224,29 +204,43 @@
           </ul>
         </div>
       </section>
+      <!-- Deck -->
+      <section class="pdf-section" hidden>
+        <div class="deck-head">
+          <h2 class="deck-title">The deck</h2>
+          <a class="btn btn-secondary" href="../assets/pdfs/produscope-student-finance.pdf" target="_blank" rel="noopener">Open PDF ↗</a>
+        </div>
+        <iframe class="deck-frame" data-src="../assets/pdfs/produscope-student-finance.pdf#view=FitH" title="Student Finance App — The 'Hisaab' Problem deck" loading="lazy"></iframe>
+      </section>
     </main>
 
-    <footer>
-      <div class="footer-content">
-        <div class="footer-bottom">
-          <div class="footer-quote">"Ship to learn. Strong opinions, weakly held."</div>
-          <div class="footer-copyright">© 2026 Pranav Bhadane. Built with intention.</div>
+    <footer class="site-footer">
+      <div class="footer-cta">
+        <div>
+          <p class="eyebrow"><span class="status-dot"></span>&nbsp; open to PM, APM &amp; strategy roles</p>
+          <h2>Let's talk.</h2>
         </div>
+        <a class="btn btn-primary" href="mailto:pranav.bhadane.iitkgp@gmail.com">pranav.bhadane.iitkgp@gmail.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="../assets/pdfs/Resume-Pranav.pdf" target="_blank" rel="noopener">resume.pdf</a>
+        <a href="https://www.linkedin.com/in/pranav-bhadane-iitkgp/" target="_blank" rel="noopener">linkedin</a>
+        <a href="https://github.com/Coderopp" target="_blank" rel="noopener">github</a>
+        <a href="https://x.com/Pranav_IITKGP" target="_blank" rel="noopener">x.com</a>
+        <a href="tel:+917666381808">+91 76663 81808</a>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Pranav Bhadane · Kharagpur, India</span>
+        <span>ship to learn. strong opinions, weakly held.</span>
       </div>
     </footer>
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>
-    // Set PDF.js worker source (required for PDF.js 3.x)
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  </script>
   <script>
     // Dark Mode Toggle
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const html = document.documentElement;
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', currentTheme);
     themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
     themeToggle.addEventListener('click', () => {
@@ -257,39 +251,14 @@
       themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     });
 
-    // PDF Viewer
+    // Deck: use the browser's PDF viewer, and only when the file exists
     const pdfUrl = '../assets/pdfs/produscope-student-finance.pdf';
-    const canvas = document.getElementById('pdf-canvas');
-    const pageInfo = document.getElementById('page-info');
-    let pdfDoc = null, currentPage = 1, scale = 1.2;
-
-    async function loadPDF() {
-      try {
-        pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
-        renderPage();
-      } catch(err) {
-        canvas.parentElement.innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px">Failed to load PDF. <a href="' + pdfUrl + '" target="_blank">Download directly</a></p>';
-      }
-    }
-
-    async function renderPage() {
-      if (!pdfDoc) return;
-      const page = await pdfDoc.getPage(currentPage);
-      const viewport = page.getViewport({ scale });
-      const ctx = canvas.getContext('2d');
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-      await page.render({ canvasContext: ctx, viewport }).promise;
-      pageInfo.textContent = `Page ${currentPage} / ${pdfDoc.numPages}`;
-    }
-
-    document.getElementById('prev-page').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderPage(); } });
-    document.getElementById('next-page').addEventListener('click', () => { if (pdfDoc && currentPage < pdfDoc.numPages) { currentPage++; renderPage(); } });
-    document.getElementById('zoom-in').addEventListener('click', () => { scale = Math.min(3, scale + 0.2); renderPage(); });
-    document.getElementById('zoom-out').addEventListener('click', () => { scale = Math.max(0.5, scale - 0.2); renderPage(); });
-    document.getElementById('download-pdf').addEventListener('click', () => { window.open(pdfUrl, '_blank'); });
-
-    loadPDF();
+    fetch(pdfUrl, { method: 'HEAD' }).then(res => {
+      if (!res.ok) return;
+      const frame = document.querySelector('.deck-frame');
+      frame.src = frame.dataset.src;
+      document.querySelector('.pdf-section').hidden = false;
+    }).catch(() => {});
   </script>
 </body>
 </html>
